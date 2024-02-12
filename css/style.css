@@ -1,0 +1,25 @@
+header {
+  content: url(../assets/images/hero-header.jpg);
+}
+header div {
+  z-index: 2;
+}
+
+header {
+  border: 1px solid red;
+}
+
+section {
+  border: 1px solid green;
+}
+
+div {
+  border: 1px solid orange;
+}
+
+/* A conserver*/
+h1 {
+  text-wrap: balance;
+}
+
+/*# sourceMappingURL=style.css.map */
