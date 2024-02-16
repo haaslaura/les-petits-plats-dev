@@ -1,9 +1,12 @@
-@import "./base/normalize";
-@import "./base/typography";
+@import "base/color";
+@import "base/normalize";
+@import "base/typography";
 
-@import "./components/recipe_cards";
-@import "./layouts/header";
-@import "./pages/home";
+@import "components/recipe_cards";
+
+@import "layouts/header";
+
+@import "pages/home";
 
 header {
     border: 1px solid red;
@@ -15,10 +18,4 @@ section {
 
 div {
     border: 1px solid orange;
-}
-
-/* A conserver*/
-
-h1 {
-    text-wrap: balance;
 }

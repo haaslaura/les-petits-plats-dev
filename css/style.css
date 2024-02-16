@@ -1,8 +1,6 @@
-header {
-  content: url(../assets/images/hero-header.jpg);
-}
-header div {
-  z-index: 2;
+header h1 {
+  text-wrap: balance;
+  color: rgb(255, 209, 91);
 }
 
 header {
@@ -15,11 +13,6 @@ section {
 
 div {
   border: 1px solid orange;
-}
-
-/* A conserver*/
-h1 {
-  text-wrap: balance;
 }
 
 /*# sourceMappingURL=style.css.map */
