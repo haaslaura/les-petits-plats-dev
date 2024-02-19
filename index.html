@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Les petits plats</title>
     <link rel="icon" href="./assets/icones/favicon.ico">
     <link rel="stylesheet" href="./css/style.css">
+    <!-- Google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
     <!-- Bootstrap -->
     <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -13,14 +17,26 @@
     
     <!-- Header, search -->
     <header class="container-fluid">
-        <div class="container">
-            <img src="./assets/logo/logo-les-petits-plats.svg" alt="Logo Les Petits Plats">
+        <div class="container py-4">
+
+            <img class="logo" src="./assets/logo/logo-les-petits-plats.svg" alt="Logo Les Petits Plats">
             <h1>Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
-            <form action="" method="GET">
-                <label for="search">Rechercher une recette</label>
-                <input type="search" id="search" name="q" placeholder="Chercher une recette, un ingrédient, ...">
-                <input type="submit" value="Rechercher">
+
+            <form class="searchform" action="" method="GET">
+                <label for="search" class="visually-hidden" >Rechercher une recette</label>
+                <div class="input-group mb-3">
+                    <input
+                        class="form-control"
+                        id="search"
+                        type="search"
+                        name="q"
+                        aria-label="Chercher une recette ou un ingrédient"
+                        placeholder="Chercher une recette, un ingrédient, ...">
+
+                    <button class="btn btn-outline-secondary" id="button-addon2" type="submit">Rechercher</button>
+                </div>
             </form>
+
         </div>
     </header>
     

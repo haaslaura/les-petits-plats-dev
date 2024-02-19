@@ -1,0 +1,46 @@
+.searchform {
+    margin-bottom: 20%;
+
+    .input-group {
+        position: relative;
+
+        /*input*/
+        #search {
+            border: none;
+            border-radius: 11px;
+            height: 60px;
+            max-width: 900px;
+            padding-left: 8%;
+            color: $color-font-grey;
+
+            &::placeholder {
+                font-family: $font-main;
+                color: $color-font-grey;
+
+                /* À tester plus tard */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+
+            }
+        }
+        /* Il faut encore styliser la croix*/
+
+        button[type=submit] {
+            background: url(../../assets/icones/loop-cta-black.svg) center center / 100% 100% no-repeat;
+            width: 48px;
+            height: 48px;
+            border: none;
+
+            position: absolute;
+            top: calc((60px - 48px)/2);
+            right: 4px;
+            text-indent: 3000px;
+            z-index: 6;
+
+            &:hover, &:focus {
+                background: url(../../assets/icones/loop-cta-hover.svg);
+            }
+        }
+    }
+}
