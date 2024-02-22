@@ -1,45 +1,65 @@
 .searchform {
-    margin-bottom: 20%;
+    margin-bottom: 16%;
 
     .input-group {
         position: relative;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
 
-        /*input*/
-        #search {
-            border: none;
+        &:focus-within {
+            outline: 2px solid $color-main;
             border-radius: 11px;
+        }
+
+        input[type=search] {
+            border: none;
+            border-radius: 11px 0 0 11px;
             height: 60px;
-            max-width: 900px;
             padding-left: 8%;
             color: $color-font-grey;
+
+            text-overflow: ellipsis;
+            /*white-space: nowrap;
+            box-sizing: border-box;
+            overflow: hidden;*/
+
+            &::-webkit-search-cancel-button {
+                -webkit-appearance: none;
+                height: 16px;
+                width: 16px;
+                margin-left: .4em;
+                background-image: url("../../assets/icones/clear-icon.svg");
+                cursor: pointer;
+            }
 
             &::placeholder {
                 font-family: $font-main;
                 color: $color-font-grey;
-
-                /* À tester plus tard */
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-
             }
+            
+            &:focus  {
+                outline: none;
+                box-shadow: none;
+            }  
         }
-        /* Il faut encore styliser la croix*/
 
-        button[type=submit] {
-            background: url(../../assets/icones/loop-cta-black.svg) center center / 100% 100% no-repeat;
-            width: 48px;
-            height: 48px;
-            border: none;
+        .bg-btn-loop {
+            border-radius: 0 11px 11px 0;
+            height: 60px;
+            width: 60px;
 
-            position: absolute;
-            top: calc((60px - 48px)/2);
-            right: 4px;
-            text-indent: 3000px;
-            z-index: 6;
+            button[type=submit] {
+                background: url(../../assets/icones/loop-cta-black.svg) center center / 100% 100% no-repeat;
+                width: 48px;
+                height: 48px;
+                border: none;
+                text-indent: 3000px;
+                cursor: pointer;
 
-            &:hover, &:focus {
-                background: url(../../assets/icones/loop-cta-hover.svg);
+                &:hover, &:focus {
+                    background: url(../../assets/icones/loop-cta-hover.svg) center center / 100% 100% no-repeat;
+                }
             }
         }
     }

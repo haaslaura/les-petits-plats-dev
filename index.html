@@ -22,9 +22,9 @@
             <img class="logo" src="./assets/logo/logo-les-petits-plats.svg" alt="Logo Les Petits Plats">
             <h1>Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
 
-            <form class="searchform" action="" method="GET">
+            <form class="searchform" action="#" method="GET">
                 <label for="search" class="visually-hidden" >Rechercher une recette</label>
-                <div class="input-group mb-3">
+                <div class="input-group d-flex justify-content-center">
                     <input
                         class="form-control"
                         id="search"
@@ -32,8 +32,9 @@
                         name="q"
                         aria-label="Chercher une recette ou un ingrédient"
                         placeholder="Chercher une recette, un ingrédient, ...">
-
-                    <button class="btn btn-outline-secondary" id="button-addon2" type="submit">Rechercher</button>
+                    <div class="bg-white d-flex justify-content-center align-items-center bg-btn-loop">
+                        <button class="loop-icon" type="submit">Rechercher</button>
+                    </div>
                 </div>
             </form>
 
@@ -73,7 +74,17 @@
             <div class="row gx-2">
 
                 <div class="col-lg-4 col-md-6 col-sm-12 gx-2">
-                    recette 1
+                    
+                    <!-- Card components -->
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                        <div class="card-body">
+                          <h5 class="card-title">Card title</h5>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        </div>
+                      </div>
+
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12 gx-2">
                     recette 2
