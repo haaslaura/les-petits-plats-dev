@@ -44,24 +44,33 @@
     <main class="container-f luid bg-light">
         
         <!-- Filters -->
-        <section class="container">
-            <div>
-                <nav>
-                    <ul>
-                        <li>Ingrédients</li>
-                        <li>Appareils</li>
-                        <li>Ustensiles</li>
-                    </ul>
-                </nav>
-                
+        <section class="container mt-4" aria-label="Choisir une option pour filter les recettes">
+            <div class="filter d-flex flex-nowrap justify-content-between mb-3">
+
+                <!-- Un filtre pour voir ce que ça donne -->
+                <div class="dropdown filter__ingredients">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Dropdown button
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+
                 <!-- Nb receipies -->
-                <p>1500 recettes</p>
+                <p><span>1500</span> recettes</p>
             </div>
             <!-- Selected options -->
-            <div>
-                <!-- One option -->
-                <div>
+            <div class="display-tag d-flex">
+                <!-- Two tag, for CSS preparing -->
+                <div id="tag-one" class="d-flex flex-row flex-nowrap align-items-center p-3 me-2">
                     <p>Crème de coco</p>
+                    <button>Fermer</button>
+                </div>
+                <div id="tag-one" class="d-flex flex-row flex-nowrap align-items-center p-3 me-2">
+                    <p>Crème de cassis</p>
                     <button>Fermer</button>
                 </div>
                 
@@ -69,27 +78,51 @@
         </section>
         
         <!-- Recepies list -->
-        <section class="container">
+        <section class="container mt-4">
             
-            <div class="row gx-2">
+            <div class="row">
 
-                <div class="col-lg-4 col-md-6 col-sm-12 gx-2">
+                <div class="col">
                     
                     <!-- Card components -->
                     <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src=".../100px180/" alt="Card image cap">
-                        <div class="card-body">
-                          <h5 class="card-title">Card title</h5>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div>
+                            <img class="card-img-top" src=".../100px180/" alt="Card image cap">
+                            <p>10min</p>
                         </div>
-                      </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Limonade de coco</h5>
+                            <p class="card-text">
+                                Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée.
+                            </p>
+                            <h4>Ingrédients</h4>
+                            <div>
+                                <div class="ingredients-list d-flex flex-column flex-wrap">
+                                    <p>Lait de coco</p>
+                                    <span>400ml</span>
+
+                                    <p>Crème de coco</p>
+                                    <span>4 cuillères</span>
+
+                                    <p>Glaçons</p>
+                                    <span>2</span>
+
+                                    <p>Jus de citrons</p>
+                                    <span>2</span>
+
+                                    <p>Sucre</p>
+                                    <span>20g</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 gx-2">
+                <div class="col">
+                <!--<div class="col-lg-4 col-md-6 col-sm-12 gx-2">-->
                     recette 2
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 gx-2">
+                <div class="col">
                     recette 3
                 </div>
 

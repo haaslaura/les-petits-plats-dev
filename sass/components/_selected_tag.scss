@@ -1,0 +1,28 @@
+
+
+#tag-one {
+    background-color: $color-main;
+    color: black;
+    height: 53px;
+    border-radius: 10px;
+
+    width: auto;
+
+    p {
+        margin: 0;
+        font-size: 0.8rem;
+        
+        @media (min-width: 576px) {
+            font-size: 1rem;
+        }        
+    }
+
+    button {
+        background: url(../../assets/icones/clear-icon-black.svg) center center / 35% 35% no-repeat;
+        width: 36px;
+        height: 36px;
+        border: none;
+        text-indent: 3000px;
+        cursor: pointer;
+    }
+}

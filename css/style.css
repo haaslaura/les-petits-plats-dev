@@ -1,9 +1,36 @@
+@charset "UTF-8";
 /*******************/
 /*** MAIN COLOR ****/
 /*******************/
 /*******************/
 /**** MAIN FONT ****/
 /*******************/
+#tag-one {
+  background-color: rgb(255, 209, 91);
+  color: black;
+  height: 53px;
+  border-radius: 10px;
+  width: auto;
+}
+#tag-one p {
+  margin: 0;
+  font-size: 0.8rem;
+}
+@media (min-width: 576px) {
+  #tag-one p {
+    font-size: 1rem;
+  }
+}
+#tag-one button {
+  background: url(../../assets/icones/clear-icon-black.svg) center center/35% 35% no-repeat;
+  width: 36px;
+  height: 36px;
+  border: none;
+  text-indent: 3000px;
+  cursor: pointer;
+}
+
+/* fichier pour gérer le rendu d'une sort liste */
 .searchform {
   margin-bottom: 16%;
 }
@@ -88,6 +115,29 @@ header h1 {
     font-size: 2.75rem;
     line-height: 3.5rem;
   }
+}
+
+/* Ici faire le rendu d'ensemble genre les div qui contiennent les sort liste + les card */
+main {
+  border: 1px solid red;
+}
+main section {
+  border: 1px solid green;
+}
+
+h2 {
+  font-family: "Anton", sans-serif;
+  color: #1B1B1B;
+}
+
+h3, h4, h5, p, a, ul, li {
+  font-family: "Manrope", sans-serif;
+  color: #1B1B1B;
+}
+
+.filter p {
+  font-family: "Anton", sans-serif;
+  font-size: 1.3rem;
 }
 
 /*# sourceMappingURL=style.css.map */

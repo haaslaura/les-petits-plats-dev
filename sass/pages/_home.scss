@@ -1,0 +1,27 @@
+/* Ici faire le rendu d'ensemble genre les div qui contiennent les sort liste + les card */
+
+main {
+    border: 1px solid red;
+
+    section {
+        border: 1px solid green;
+    }
+}
+
+
+h2 {
+    font-family: $font-title;
+    color: $color-font;
+}
+
+h3, h4, h5, p, a, ul, li {
+    font-family: $font-main;
+    color: $color-font;
+}
+
+.filter {
+    p {
+        font-family: $font-title;
+        font-size: 1.3rem;
+    }
+}
