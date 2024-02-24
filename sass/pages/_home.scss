@@ -8,15 +8,21 @@ main {
     }
 }
 
-
 h2 {
     font-family: $font-title;
     color: $color-font;
+    line-height: 1.13rem;
 }
 
 h3, h4, h5, p, a, ul, li {
     font-family: $font-main;
     color: $color-font;
+    line-height: 1rem;
+}
+
+p {
+    font-size: 0.88rem;
+    line-height: 1.19rem;
 }
 
 .filter {
