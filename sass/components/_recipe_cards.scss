@@ -1,0 +1,54 @@
+.recipe-card {
+    border: none !important;
+    border-radius: 21px !important;
+
+    .recipe-card__img {
+        height: 250px;
+        z-index: 2;
+        position: relative;
+
+        img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        p {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 8px 6px 8px;
+            background-color: $color-main;
+            border-radius: 14px;
+            z-index: 3;
+            font-size: 0.75rem;
+        }
+    }
+
+    .card-body {
+        h5 {
+            font-family: $font-title;
+            font-size: 1.12rem;
+            margin-top: 25px;
+            margin-bottom: 25px;
+        }
+
+        h4 {
+            font-family: $font-main;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: $color-font-grey;
+            text-transform: uppercase;
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            margin-bottom: 5px;
+            text-wrap: balance;
+
+            span {
+                color: $color-font-grey;
+            }
+        }
+    }
+}

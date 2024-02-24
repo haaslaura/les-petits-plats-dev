@@ -5,6 +5,52 @@
 /*******************/
 /**** MAIN FONT ****/
 /*******************/
+.recipe-card {
+  border: none !important;
+  border-radius: 21px !important;
+}
+.recipe-card .recipe-card__img {
+  height: 250px;
+  z-index: 2;
+  position: relative;
+}
+.recipe-card .recipe-card__img img {
+  height: 100%;
+  object-fit: cover;
+}
+.recipe-card .recipe-card__img p {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 8px 6px 8px;
+  background-color: rgb(255, 209, 91);
+  border-radius: 14px;
+  z-index: 3;
+  font-size: 0.75rem;
+}
+.recipe-card .card-body h5 {
+  font-family: "Anton", sans-serif;
+  font-size: 1.12rem;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+.recipe-card .card-body h4 {
+  font-family: "Manrope", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #7A7A7A;
+  text-transform: uppercase;
+  margin-top: 25px;
+  margin-bottom: 20px;
+}
+.recipe-card .card-body p {
+  margin-bottom: 5px;
+  text-wrap: balance;
+}
+.recipe-card .card-body p span {
+  color: #7A7A7A;
+}
+
 #tag-one {
   background-color: rgb(255, 209, 91);
   color: black;
@@ -14,12 +60,6 @@
 }
 #tag-one p {
   margin: 0;
-  font-size: 0.8rem;
-}
-@media (min-width: 576px) {
-  #tag-one p {
-    font-size: 1rem;
-  }
 }
 #tag-one button {
   background: url(../../assets/icones/clear-icon-black.svg) center center/35% 35% no-repeat;
@@ -49,7 +89,7 @@
   border-radius: 11px 0 0 11px;
   height: 60px;
   padding-left: 8%;
-  color: rgb(122, 122, 122);
+  color: #7A7A7A;
   text-overflow: ellipsis;
   /*white-space: nowrap;
   box-sizing: border-box;
@@ -65,7 +105,7 @@
 }
 .searchform .input-group input[type=search]::placeholder {
   font-family: "Manrope", sans-serif;
-  color: rgb(122, 122, 122);
+  color: #7A7A7A;
 }
 .searchform .input-group input[type=search]:focus {
   outline: none;
@@ -128,11 +168,18 @@ main section {
 h2 {
   font-family: "Anton", sans-serif;
   color: #1B1B1B;
+  line-height: 1.13rem;
 }
 
 h3, h4, h5, p, a, ul, li {
   font-family: "Manrope", sans-serif;
   color: #1B1B1B;
+  line-height: 1rem;
+}
+
+p {
+  font-size: 0.88rem;
+  line-height: 1.19rem;
 }
 
 .filter p {
