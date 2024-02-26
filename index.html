@@ -22,8 +22,8 @@
             <img class="logo" src="./assets/logo/logo-les-petits-plats.svg" alt="Logo Les Petits Plats">
             <h1>Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
 
-            <form class="searchform" action="#" method="GET">
-                <label for="search" class="visually-hidden" >Rechercher une recette</label>
+            <div class="searchform">
+                <label for="search" class="visually-hidden">Rechercher une recette</label>
                 <div class="input-group d-flex justify-content-center">
                     <input
                         class="form-control"
@@ -36,7 +36,7 @@
                         <button class="loop-icon" type="submit">Rechercher</button>
                     </div>
                 </div>
-            </form>
+            </div>
 
         </div>
     </header>
@@ -47,21 +47,39 @@
         <section class="container mt-4" aria-label="Choisir une option pour filter les recettes">
             <div class="filter d-flex flex-nowrap justify-content-between mb-3">
 
-                <!-- Un filtre pour voir ce que ça donne -->
-                <div class="dropdown filter__ingredients">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Dropdown button
+                <!-- Ingredients filter -->
+                <div class="dropdown filter__ingredients bg-white">
+                    <button
+                        class="btn dropdown-toggle"
+                        type="button"
+                        id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                      Ingrédient
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+                    <div class="" aria-labelledby="dropdownMenuButton">
+                        <div>
+                            <label for="ingredient-search" class="visually-hidden">Chercher un ingrédient</label>
+                            <input
+                                class="form-control"
+                                id="ingredient-search"
+                                type="search"
+                                name="q"
+                                aria-label="Chercher un ingrédient">
+                            <button>Chercher</button>
+                        </div>
+                      <a class="dropdown-item" href="#">Jus de citron</a>
+                      <a class="dropdown-item" href="#">Tomates</a>
+                      <a class="dropdown-item" href="#">Poulet</a>
                     </div>
                 </div>
 
                 <!-- Nb receipies -->
                 <p><span>1500</span> recettes</p>
             </div>
+
             <!-- Selected options -->
             <div class="display-tag d-flex">
                 <!-- Two tag, for CSS preparing -->

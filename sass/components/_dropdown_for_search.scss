@@ -1,0 +1,35 @@
+.filter__ingredients {
+
+    button {
+        background-color: white !important;
+
+    }
+}
+
+/*<div class="dropdown filter__ingredients">
+    <button
+        class="btn dropdown-toggle bg-white"
+        type="button"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false">
+        Ingrédient
+    </button>
+    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
+    <div class="" aria-labelledby="dropdownMenuButton">
+        <div>
+            <label for="ingredient-search" class="visually-hidden">Chercher un ingrédient</label>
+            <input
+                class="form-control"
+                id="ingredient-search"
+                type="search"
+                name="q"
+                aria-label="Chercher un ingrédient">
+            <button>Chercher</button>
+        </div>
+        <a class="dropdown-item" href="#">Jus de citron</a>
+        <a class="dropdown-item" href="#">Tomates</a>
+        <a class="dropdown-item" href="#">Poulet</a>
+    </div>
+</div>*/
