@@ -1,5 +1,16 @@
 @import "../components/search_bar";
 
+@keyframes text-appears {
+    0% {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+    100% {
+        opacity: 100%;
+        transform: translateY(0);
+    }
+}
+
 header {
     background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
     url('../../assets/images/hero-header.webp');
@@ -24,6 +35,12 @@ header {
         margin-top: 16%;
         margin-bottom: 8%;
 
+        animation-name: text-appears;
+        transition-timing-function: ease-out;
+        animation-duration: 1000ms;
+        animation-delay: 650ms;
+        animation-fill-mode: backwards;
+        
         @media (min-width: 768px) {
             font-size: 2.75rem;
             line-height: 3.5rem;

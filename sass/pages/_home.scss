@@ -1,13 +1,5 @@
 /* Ici faire le rendu d'ensemble genre les div qui contiennent les sort liste + les card */
 
-main {
-    border: 1px solid red;
-
-    section {
-        border: 1px solid green;
-    }
-}
-
 h2 {
     font-family: $font-title;
     color: $color-font;
@@ -25,9 +17,11 @@ p {
     line-height: 1.19rem;
 }
 
-.filter {
+.filter-section {
+
     p {
         font-family: $font-title;
         font-size: 1.3rem;
+        margin: 0;
     }
 }

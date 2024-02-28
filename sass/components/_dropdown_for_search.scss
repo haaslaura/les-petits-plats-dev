@@ -1,35 +1,70 @@
-.filter__ingredients {
+.filter {
+    background-color: white;
+    border-radius: 11px;
+    width: 200px;
+    /*position: relative;*/
 
-    button {
-        background-color: white !important;
+    .dropdown-btn-filter {
+        background-color: white;
+        width: 100%;
+        font-family: $font-main;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
+        border: 1px solid salmon;
+    }
 
+    .option-list {
+        border: 1px solid salmon;
+        display: block;
+        /*position: relative;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 99999;*/
+
+        form {
+            border: 1px rgba(198, 198, 198, 1) solid;
+            border-radius: 3px;
+
+            input {
+                color: $color-font-grey;
+                border: none;
+                padding: 6px 0px 6px 12px;
+
+                &::-webkit-search-cancel-button {
+                    -webkit-appearance: none;
+                    height: 16px;
+                    width: 16px;
+                    margin-left: .4em;
+                    background: url("../../assets/icones/clear-icon.svg") center center / 50% 50% no-repeat;
+                    cursor: pointer;
+                }
+            }
+
+            button {
+                background: url(../../assets/icones/loop-icon-grey.svg) center center / 30% 30% no-repeat;
+                width: 36px;
+                height: 36px;
+                padding: 0;
+                border: none;
+                text-indent: 3000px;
+                cursor: pointer;
+            }
+        }
+
+        ul {
+            overflow-y: auto;
+            scrollbar-width: thin;
+            max-height: 200px;  
+            a:hover, a:focus, a:active {
+                background-color: $color-main;
+            }
+            a:focus {
+                border: none;
+                outline: none;
+            }
+        }
     }
 }
-
-/*<div class="dropdown filter__ingredients">
-    <button
-        class="btn dropdown-toggle bg-white"
-        type="button"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false">
-        Ingrédient
-    </button>
-    <!--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-    <div class="" aria-labelledby="dropdownMenuButton">
-        <div>
-            <label for="ingredient-search" class="visually-hidden">Chercher un ingrédient</label>
-            <input
-                class="form-control"
-                id="ingredient-search"
-                type="search"
-                name="q"
-                aria-label="Chercher un ingrédient">
-            <button>Chercher</button>
-        </div>
-        <a class="dropdown-item" href="#">Jus de citron</a>
-        <a class="dropdown-item" href="#">Tomates</a>
-        <a class="dropdown-item" href="#">Poulet</a>
-    </div>
-</div>*/

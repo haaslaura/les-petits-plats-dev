@@ -71,6 +71,70 @@
 }
 
 /* fichier pour gérer le rendu d'une sort liste */
+.filter {
+  background-color: white;
+  border-radius: 11px;
+  width: 200px;
+  /*position: relative;*/
+}
+.filter .dropdown-btn-filter {
+  background-color: white;
+  width: 100%;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  border: 1px solid salmon;
+}
+.filter .option-list {
+  border: 1px solid salmon;
+  display: block;
+  /*position: relative;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 99999;*/
+}
+.filter .option-list form {
+  border: 1px rgb(198, 198, 198) solid;
+  border-radius: 3px;
+}
+.filter .option-list form input {
+  color: #7A7A7A;
+  border: none;
+  padding: 6px 0px 6px 12px;
+}
+.filter .option-list form input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  margin-left: 0.4em;
+  background: url("../../assets/icones/clear-icon.svg") center center/50% 50% no-repeat;
+  cursor: pointer;
+}
+.filter .option-list form button {
+  background: url(../../assets/icones/loop-icon-grey.svg) center center/30% 30% no-repeat;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  text-indent: 3000px;
+  cursor: pointer;
+}
+.filter .option-list ul {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  max-height: 200px;
+}
+.filter .option-list ul a:hover, .filter .option-list ul a:focus, .filter .option-list ul a:active {
+  background-color: rgb(255, 209, 91);
+}
+.filter .option-list ul a:focus {
+  border: none;
+  outline: none;
+}
+
 .searchform {
   margin-bottom: 16%;
 }
@@ -91,9 +155,6 @@
   padding-left: 8%;
   color: #7A7A7A;
   text-overflow: ellipsis;
-  /*white-space: nowrap;
-  box-sizing: border-box;
-  overflow: hidden;*/
 }
 .searchform .input-group input[type=search]::-webkit-search-cancel-button {
   -webkit-appearance: none;
@@ -128,6 +189,16 @@
   background: url(../../assets/icones/loop-cta-hover.svg) center center/100% 100% no-repeat;
 }
 
+@keyframes text-appears {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 100%;
+    transform: translateY(0);
+  }
+}
 header {
   background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("../../assets/images/hero-header.webp");
   background-size: cover;
@@ -149,6 +220,11 @@ header h1 {
   text-align: center;
   margin-top: 16%;
   margin-bottom: 8%;
+  animation-name: text-appears;
+  transition-timing-function: ease-out;
+  animation-duration: 1000ms;
+  animation-delay: 650ms;
+  animation-fill-mode: backwards;
 }
 @media (min-width: 768px) {
   header h1 {
@@ -158,13 +234,6 @@ header h1 {
 }
 
 /* Ici faire le rendu d'ensemble genre les div qui contiennent les sort liste + les card */
-main {
-  border: 1px solid red;
-}
-main section {
-  border: 1px solid green;
-}
-
 h2 {
   font-family: "Anton", sans-serif;
   color: #1B1B1B;
@@ -182,9 +251,10 @@ p {
   line-height: 1.19rem;
 }
 
-.filter p {
+.filter-section p {
   font-family: "Anton", sans-serif;
   font-size: 1.3rem;
+  margin: 0;
 }
 
 /*# sourceMappingURL=style.css.map */
