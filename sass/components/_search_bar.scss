@@ -1,18 +1,18 @@
 .searchform {
     margin-bottom: 16%;
     overflow: hidden;
-
+    
     .input-group {
         position: relative;
         max-width: 900px;
         margin-left: auto;
         margin-right: auto;
-
+        
         &:focus-within {
             outline: 2px solid $color-main;
             border-radius: 11px;
         }
-
+        
         input[type=search] {
             border: none;
             border-radius: 11px 0 0 11px;
@@ -20,7 +20,7 @@
             padding-left: 8%;
             color: $color-font-grey;
             text-overflow: ellipsis;
-
+            
             &::-webkit-search-cancel-button {
                 -webkit-appearance: none;
                 height: 16px;
@@ -29,7 +29,7 @@
                 background-image: url("../../assets/icones/clear-icon.svg");
                 cursor: pointer;
             }
-
+            
             &::placeholder {
                 font-family: $font-main;
                 color: $color-font-grey;
@@ -40,12 +40,12 @@
                 box-shadow: none;
             }  
         }
-
+        
         .bg-btn-loop {
             border-radius: 0 11px 11px 0;
             height: 60px;
             width: 60px;
-
+            
             button[type=submit] {
                 background: url(../../assets/icones/loop-cta-black.svg) center center / 100% 100% no-repeat;
                 width: 48px;
@@ -53,7 +53,7 @@
                 border: none;
                 text-indent: 3000px;
                 cursor: pointer;
-
+                
                 &:hover, &:focus {
                     background: url(../../assets/icones/loop-cta-hover.svg) center center / 100% 100% no-repeat;
                 }

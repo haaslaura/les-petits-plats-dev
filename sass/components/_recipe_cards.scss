@@ -3,17 +3,17 @@
     max-width: 420px;
     border: none !important;
     border-radius: 21px !important;
-
+    
     .recipe-card__img {
         height: 250px;
         z-index: 2;
         position: relative;
-
+        
         img {
             height: 100%;
             object-fit: cover;
         }
-
+        
         p {
             position: absolute;
             top: 10px;
@@ -25,16 +25,16 @@
             font-size: 0.75rem;
         }
     }
-
+    
     .card-body {
-        h5 {
+        h2 {
             font-family: $font-title;
             font-size: 1.12rem;
             margin-top: 25px;
             margin-bottom: 25px;
         }
-
-        h4 {
+        
+        h3 {
             font-family: $font-main;
             font-size: 0.75rem;
             font-weight: 700;
@@ -43,11 +43,11 @@
             margin-top: 25px;
             margin-bottom: 20px;
         }
-
+        
         p {
             margin-bottom: 5px;
             text-wrap: balance;
-
+            
             span {
                 color: $color-font-grey;
             }

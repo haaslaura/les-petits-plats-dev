@@ -3,7 +3,7 @@
     border-radius: 11px 11px 11px 11px;
     width: 200px;
     /* dropdown class containt already a relative position */
-
+    
     .dropdown-btn-filter {
         background-color: white;
         width: 100%;
@@ -11,12 +11,12 @@
         font-weight: 500;
         border: none;
         cursor: pointer;
-
+        
         &:focus + .option-list, &:hover + .option-list, .option-list:hover {
             display: block;
         }
     }
-
+    
     .option-list {
         display: none;
         background-color: white;
@@ -26,17 +26,17 @@
         left: 0;
         width: 200px;
         z-index: 3000;
-
+        
         form {
             border: 1px rgba(198, 198, 198, 1) solid;
             border-radius: 3px;
-            overflow: hidden; /* Vérifier si txt btn bien masqué */
-
+            overflow: hidden;
+            
             input {
                 color: $color-font-grey;
                 border: none;
                 padding: 6px 0px 6px 12px;
-
+                
                 &::-webkit-search-cancel-button {
                     -webkit-appearance: none;
                     height: 16px;
@@ -46,7 +46,7 @@
                     cursor: pointer;
                 }
             }
-
+            
             button {
                 background: url(../../assets/icones/loop-icon-grey.svg) center center / 30% 30% no-repeat;
                 width: 36px;
@@ -57,7 +57,7 @@
                 cursor: pointer;
             }
         }
-
+        
         ul {
             overflow-y: auto;
             scrollbar-width: thin;
