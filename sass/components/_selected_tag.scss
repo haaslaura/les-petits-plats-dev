@@ -1,12 +1,9 @@
-
-
-#tag-one {
+.tag {
     background-color: $color-main;
     color: black;
     height: 53px;
     border-radius: 10px;
-
-    width: auto;
+    min-width: 200px;
 
     p {
         margin: 0;
