@@ -6,7 +6,7 @@
 /*******************/
 .recipe-card {
   min-width: 380px;
-  max-width: 420px;
+  max-width: 400px;
   border: none !important;
   border-radius: 21px !important;
 }
@@ -252,7 +252,7 @@ h3, h4, h5, p, a, ul, li {
 
 p {
   font-size: 0.88rem;
-  line-height: 1.19rem;
+  line-height: 1.3rem;
 }
 
 .filter-section p {
