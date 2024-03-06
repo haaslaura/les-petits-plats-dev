@@ -25,7 +25,7 @@ export function recipeCard(recipesData) {
 
         // Corps de la carte
         const cardBody = document.createElement("div");
-        cardBody.className = "card-body";
+        cardBody.classList.add ("recipe-sequence", "card-body");
 
         const h2Title = document.createElement("h2");
         h2Title.className = "card-title";
@@ -50,17 +50,33 @@ export function recipeCard(recipesData) {
 
         // Liste des ingrédients
         const ingredientsList = document.createElement("div");
-        ingredientsList.classList.add("ingredients-list", "d-flex", "flex-column", "flex-wrap");
+        ingredientsList.classList.add("ingredients-list", "d-flex", "flex-row", "flex-wrap", "card-body");
 
+        // Parcourir le tableau des ingrédients
+        ingredients.forEach(item => {
 
-        console.log(ingredients); /* c'est un tableau */
-        /* contenant plusieurs éléments, dont chacun contient : */
-        /**
-         * Un nom d'ingrédient
-         * peut-être une quantité
-         * peut-être une unité (pour la quantité)
-         */
+            const p = document.createElement("p");
+            if (item) { /*Si un item est présent */
 
+                if (item?.ingredient) { /*Vérifier si ingredient */
+                    if (item?.quantity) { /*Vérifier si quantity */
+                        if (item?.unit) { /*Vérifier si unit */
+                            p.innerHTML = `${item.ingredient}<br><span>${item.quantity} ${item.unit}</span>`;
+
+                            
+                        } else {
+                            p.innerHTML = `${item.ingredient}<br><span>${item.quantity}</span>`;
+
+                        }
+                    } else {
+                        p.innerHTML = `${item.ingredient}`;
+
+                    }
+                }
+            }
+            // Intégrer les balises p
+            ingredientsList.appendChild(p);
+        });
 
         // Intégrer les éléments dans le contenant de la carte
         recipeCard.appendChild(recipeCardImg);
@@ -85,18 +101,12 @@ export function recipeCard(recipesData) {
             Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée.
         </p>
         <h3 class="card-subtitle">Ingrédients</h3>
-        <div class="ingredients-list d-flex flex-column flex-wrap">
-            <div class="row">
-                <p class="col-sm">Lait de coco<br><span>400ml</span></p>
-                <p class="col-sm">Crème de coco<br><span>4 cuillères</span></p>
-            </div>
-            <div class="row">
-                <p class="col-sm">Glaçons<br><span>2</span></p>
-                <p class="col-sm">Jus de citrons<br><span>2</span></p>
-            </div>
-            <div class="row">
-                <p class="col-sm">Sucre<br><span>20g</span></p>
-            </div>
+        <div class="ingredients-list d-flex flex-row flex-wrap align-content-around">
+            <p>Lait de coco<br><span>400ml</span></p>
+            <p>Crème de coco<br><span>4 cuillères</span></p>
+            <p>Glaçons<br><span>2</span></p>
+            <p>Jus de citrons<br><span>2</span></p>
+            <p>Sucre<br><span>20g</span></p>
         </div>
     </div>
 </div>

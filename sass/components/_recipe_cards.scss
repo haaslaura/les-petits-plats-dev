@@ -26,7 +26,10 @@
         }
     }
     
-    .card-body {
+    .recipe-sequence {
+
+        padding-bottom: 0px !important;
+
         h2 {
             font-family: $font-title;
             font-size: 1.12rem;
@@ -46,11 +49,23 @@
         
         p {
             margin-bottom: 5px;
-            text-wrap: balance;
-            
-            span {
-                color: $color-font-grey;
-            }
+            padding-right: 1rem;
+            /*text-wrap: balance;*/
+
         }
     }
+
+    .ingredients-list {
+
+        padding-top: 0px !important;
+
+        p {
+            width: 50%;
+        }
+        
+        span {
+            color: $color-font-grey;
+        }
+    }
+
 }

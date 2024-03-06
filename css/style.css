@@ -29,13 +29,16 @@
   z-index: 3;
   font-size: 0.75rem;
 }
-.recipe-card .card-body h2 {
+.recipe-card .recipe-sequence {
+  padding-bottom: 0px !important;
+}
+.recipe-card .recipe-sequence h2 {
   font-family: "Anton", sans-serif;
   font-size: 1.12rem;
   margin-top: 25px;
   margin-bottom: 25px;
 }
-.recipe-card .card-body h3 {
+.recipe-card .recipe-sequence h3 {
   font-family: "Manrope", sans-serif;
   font-size: 0.75rem;
   font-weight: 700;
@@ -44,11 +47,18 @@
   margin-top: 25px;
   margin-bottom: 20px;
 }
-.recipe-card .card-body p {
+.recipe-card .recipe-sequence p {
   margin-bottom: 5px;
-  text-wrap: balance;
+  padding-right: 1rem;
+  /*text-wrap: balance;*/
 }
-.recipe-card .card-body p span {
+.recipe-card .ingredients-list {
+  padding-top: 0px !important;
+}
+.recipe-card .ingredients-list p {
+  width: 50%;
+}
+.recipe-card .ingredients-list span {
   color: #7A7A7A;
 }
 
