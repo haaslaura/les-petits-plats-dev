@@ -45,164 +45,178 @@
     
     <main class="container-fluid bg-light pb-4">
         
-        <!-- Filters -->
+        <!-- All filters options -->
         <section class="container pt-5" aria-label="Choisir des options pour filter les recettes">
-            <div class="filter-section d-flex flex-nowrap justify-content-between align-items-center mb-3">
-                <div class="filter-section__options d-flex flex-wrap">
-                    
+
+            <!-- Dropdow +  Nb receipies -->
+            <div class="filter-section d-flex flex-nowrap justify-content-between align-items-center">
+
+                <!-- Dropdown -->
+                <div class="filter-section d-flex flex-wrap justify-content-start align-items-center mb-3">
+
                     <!-- Ingredients filter -->
-                    <div class="dropdown filter p-2 me-3 mb-3">
+                    <div class="dropdown filter d-flex flex-wrap me-3 mb-3">
+                        
+                            <button
+                            class="dropdown-btn-filter d-flex justify-content-between"
+                            type="button"
+                            id="dropdownMenuButton-ingredients"
+                            data-toggle="dropdown"
+                            aria-haspopup="true"
+                            aria-expanded="false">
+                            <span>Ingrédients</span>
+                            <span><img src="assets/icones/arrow-down.svg" alt=""></span>
+                            </button>
+                        
+                        <div class="option-list p-2" aria-labelledby="dropdownMenuButton-ingredients">
+                            <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
+                                <label for="ingredient-search" class="visually-hidden">Chercher un ingrédient</label>
+                                <input
+                                class="form-control"
+                                id="ingredient-search"
+                                type="search"
+                                name="q"
+                                autocomplete="false"
+                                aria-label="Chercher un ingrédient">
+                                <div class="d-flex justify-content-center align-items-center bg-btn-loop">
+                                    <button>Chercher</button>
+                                </div>
+                            </form>
+                            <ul class="list-unstyled mb-0 mt-3 ">
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Jus de citron</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Tomates</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                            </ul>                        
+                        </div>
+                    </div>
+                    
+                    <!-- Devices filter -->
+                    <div class="dropdown filter d-flex flex-wrap me-3 mb-3">
+                        
                         <button
                         class="dropdown-btn-filter d-flex justify-content-between"
                         type="button"
-                        id="dropdownMenuButton-ingredients"
+                        id="dropdownMenuButton-devices"
                         data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false">
-                        <span>Ingrédients</span>
+                        <span>Appareils</span>
                         <span><img src="assets/icones/arrow-down.svg" alt=""></span>
-                    </button>
-                    <div class="option-list p-2" aria-labelledby="dropdownMenuButton-ingredients">
-                        <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
-                            <label for="ingredient-search" class="visually-hidden">Chercher un ingrédient</label>
-                            <input
-                            class="form-control"
-                            id="ingredient-search"
-                            type="search"
-                            name="q"
-                            autocomplete="false"
-                            aria-label="Chercher un ingrédient">
-                            <div class="d-flex justify-content-center align-items-center bg-btn-loop">
-                                <button>Chercher</button>
-                            </div>
-                        </form>
-                        <ul class="list-unstyled mb-0 mt-3 ">
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Jus de citron</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Tomates</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                            <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        </ul>                        
+                        </button>
+
+                        <div class="option-list p-2" aria-labelledby="dropdownMenuButton-devices">
+                            <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
+                                <label for="device-search" class="visually-hidden">Chercher un appareil</label>
+                                <input
+                                class="form-control"
+                                id="device-search"
+                                type="search"
+                                name="q"
+                                autocomplete="false"
+                                aria-label="Chercher un appareil">
+                                <div class="d-flex justify-content-center align-items-center bg-btn-loop">
+                                    <button>Chercher</button>
+                                </div>
+                            </form>
+                            <ul class="list-unstyled mb-0 mt-3 ">
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Jus de citron</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Tomates</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                            </ul>                        
+                        </div>
                     </div>
+                
+                    <!-- Utensils filter -->
+                    <div class="dropdown filter d-flex flex-wrap me-3 mb-3">
+
+                        <button
+                        class="dropdown-btn-filter d-flex justify-content-between"
+                        type="button"
+                        id="dropdownMenuButton-utensils"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
+                        <span>Ustensiles</span>
+                        <span><img src="assets/icones/arrow-down.svg" alt=""></span>
+                        </button>
+
+                        <div class="option-list p-2" aria-labelledby="dropdownMenuButton-utensils">
+                            <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
+                                <label for="utensil-search" class="visually-hidden">Chercher un ustensiles</label>
+                                <input
+                                class="form-control"
+                                id="utensil-search"
+                                type="search"
+                                name="q"
+                                autocomplete="false"
+                                aria-label="Chercher un ustensiles">
+                                <div class="d-flex justify-content-center align-items-center bg-btn-loop">
+                                    <button>Chercher</button>
+                                </div>
+                            </form>
+                            <ul class="list-unstyled mb-0 mt-3 ">
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Jus de citron</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Tomates</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                                <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
+                            </ul>                        
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nb receipies -->
+                <p><span>1500</span> recettes</p>
+            </div>
+
+
+            <!-- Tag for selected options -->
+            <div class="display-tag d-flex flex-row flex-wrap align-items-center mt-4">
+                <!-- Two tag, for CSS preparing -->
+                <div class="tag d-flex flex-row flex-nowrap justify-content-between align-items-center p-3 me-4 mb-2">
+                    <p>Crème de coco</p>
+                    <button>Fermer</button>
+                </div>
+                <div class="tag d-flex flex-row flex-nowrap justify-content-between align-items-center p-3 me-4 mb-2">
+                    <p>Crème de cassis</p>
+                    <button>Fermer</button>
                 </div>
                 
-                <!-- Devices filter -->
-                <div class="dropdown filter p-2 me-3 mb-3">
-                    <button
-                    class="dropdown-btn-filter d-flex justify-content-between"
-                    type="button"
-                    id="dropdownMenuButton-devices"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false">
-                    <span>Appareils</span>
-                    <span><img src="assets/icones/arrow-down.svg" alt=""></span>
-                </button>
-                <div class="option-list p-2" aria-labelledby="dropdownMenuButton-devices">
-                    <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
-                        <label for="device-search" class="visually-hidden">Chercher un appareil</label>
-                        <input
-                        class="form-control"
-                        id="device-search"
-                        type="search"
-                        name="q"
-                        autocomplete="false"
-                        aria-label="Chercher un appareil">
-                        <div class="d-flex justify-content-center align-items-center bg-btn-loop">
-                            <button>Chercher</button>
-                        </div>
-                    </form>
-                    <ul class="list-unstyled mb-0 mt-3 ">
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Jus de citron</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Tomates</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                        <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    </ul>                        
-                </div>
             </div>
+        </section>
+
+        <!-- Recipes list -->
+        <section class="container recipes-list d-flex flex-row flex-wrap justify-content-between align-items-start mt-4 gap-6">
+            <!-- Card components -->
             
-            <!-- Utensils filter -->
-            <div class="dropdown filter p-2 me-3 mb-3">
-                <button
-                class="dropdown-btn-filter d-flex justify-content-between"
-                type="button"
-                id="dropdownMenuButton-utensils"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false">
-                <span>Ustensiles</span>
-                <span><img src="assets/icones/arrow-down.svg" alt=""></span>
-            </button>
-            <div class="option-list p-2" aria-labelledby="dropdownMenuButton-utensils">
-                <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
-                    <label for="utensil-search" class="visually-hidden">Chercher un ustensiles</label>
-                    <input
-                    class="form-control"
-                    id="utensil-search"
-                    type="search"
-                    name="q"
-                    autocomplete="false"
-                    aria-label="Chercher un ustensiles">
-                    <div class="d-flex justify-content-center align-items-center bg-btn-loop">
-                        <button>Chercher</button>
-                    </div>
-                </form>
-                <ul class="list-unstyled mb-0 mt-3 ">
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Jus de citron</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Tomates</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                    <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">Poulet</a></li>
-                </ul>                        
-            </div>
-        </div>
-    </div>
-    <!-- Nb receipies -->
-    <p><span>1500</span> recettes</p>
-</div>
+        </section>
+    </main>
 
-<!-- Selected options -->
-<div class="display-tag d-flex flex-row flex-wrap align-items-center mt-4">
-    <!-- Two tag, for CSS preparing -->
-    <div class="tag d-flex flex-row flex-nowrap justify-content-between align-items-center p-3 me-4 mb-2">
-        <p>Crème de coco</p>
-        <button>Fermer</button>
-    </div>
-    <div class="tag d-flex flex-row flex-nowrap justify-content-between align-items-center p-3 me-4 mb-2">
-        <p>Crème de cassis</p>
-        <button>Fermer</button>
-    </div>
-    
-</div>
-</section>
-
-<!-- Recipes list -->
-<section class="container recipes-list d-flex flex-row flex-wrap justify-content-between align-items-start mt-4 gap-6">
-    <!-- Card components -->
-    
-</section>
-</main>
+    <script src=""></script>
 </body>
 </html>

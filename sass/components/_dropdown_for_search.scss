@@ -1,11 +1,13 @@
 .filter {
     background-color: white;
-    border-radius: 11px 11px 11px 11px;
+    border-radius: 11px;
     width: 200px;
     /* dropdown class containt already a relative position */
     
     .dropdown-btn-filter {
         background-color: white;
+        padding: 10px 18px 10px 18px;
+        border-radius: 11px;
         width: 100%;
         font-family: $font-main;
         font-weight: 500;
