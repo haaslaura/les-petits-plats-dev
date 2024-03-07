@@ -64,12 +64,18 @@
             overflow-y: auto;
             scrollbar-width: thin;
             max-height: 200px;  
-            a:hover, a:focus, a:active {
-                background-color: $color-main;
-            }
-            a:focus {
-                border: none;
-                outline: none;
+
+            a {
+                white-space: normal;
+                line-height: 1.3rem;
+
+                &:hover, a:focus, a:active {
+                    background-color: $color-main;
+                }
+                &:focus {
+                    border: none;
+                    outline: none;
+                }
             }
         }
     }

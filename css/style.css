@@ -143,7 +143,11 @@
   scrollbar-width: thin;
   max-height: 200px;
 }
-.filter .option-list ul a:hover, .filter .option-list ul a:focus, .filter .option-list ul a:active {
+.filter .option-list ul a {
+  white-space: normal;
+  line-height: 1.3rem;
+}
+.filter .option-list ul a:hover, .filter .option-list ul a a:focus, .filter .option-list ul a a:active {
   background-color: rgb(255, 209, 91);
 }
 .filter .option-list ul a:focus {

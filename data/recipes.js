@@ -258,7 +258,7 @@ const recipes = [
 		],
 		"time": 50,
 		"description": "Étaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crème liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur la tarte.",
-		"appliance":"Four",
+		"appliance": "Four",
 		"ustensils":["moule à tartelettes (6)", "casserole"]
 	}, {
 		"id": 8,
@@ -331,8 +331,8 @@ const recipes = [
 			}
 		],
 		"time": 15,
-		"description":"Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olives à votre gout.",
-		"appliance":"Saladier",
+		"description": "Peler le concombre le couper 2, retirer les pépins. Couper les olives en morceaux, ainsi que le fromage de chèvre. Ajouter le basilic ainsi que le vinaigre balsamic et l'huile d'olives à votre gout.",
+		"appliance": "Saladier",
 		"ustensils":["cuillère en bois", "couteau"]
 	},
 	{
