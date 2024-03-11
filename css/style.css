@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*******************/
 /*** MAIN COLOR ****/
 /*******************/
@@ -69,6 +70,8 @@
   border-radius: 10px;
   min-width: 200px;
   overflow: hidden;
+  transform-origin: 50% top;
+  transition: max-height 0.45s ease-in-out, opacity 0.45s ease-in-out;
 }
 .tag p {
   margin: 0;
@@ -82,11 +85,37 @@
   cursor: pointer;
 }
 
+/* Animations */
+.closing-animation {
+  animation: closingAnimation 0.3s ease-in-out; /* Ajustez la durée et l'effet d'animation selon vos besoins */
+  transform-origin: top center;
+}
+
+@keyframes closingAnimation {
+  0% {
+    opacity: 1;
+    max-height: 100px;
+    transform: scaleY(1);
+  }
+  100% {
+    opacity: 0;
+    max-height: 0;
+    transform: scaleY(0);
+  }
+}
 .filter {
   background-color: white;
   border-radius: 11px;
   width: 200px;
   /* dropdown class containt already a relative position */
+}
+.filter:hover .option-list {
+  max-height: 280px;
+  opacity: 1;
+}
+.filter:not(:hover) .option-list {
+  max-height: 0;
+  opacity: 0;
 }
 .filter .dropdown-btn-filter {
   background-color: white;
@@ -98,16 +127,22 @@
   border: none;
   cursor: pointer;
 }
-.filter .dropdown-btn-filter:focus + .option-list, .filter .dropdown-btn-filter:hover + .option-list, .filter .dropdown-btn-filter .option-list:hover {
-  display: block;
+.filter .dropdown-btn-filter:focus, .filter .dropdown-btn-filter:hover {
+  border-radius: 11px 11px 0 0;
+}
+.filter .dropdown-btn-filter:focus + .option-list, .filter .dropdown-btn-filter:hover + .option-list {
+  max-height: 280px;
+  opacity: 1;
 }
 .filter .option-list {
-  display: none;
+  overflow: hidden;
   background-color: white;
   position: absolute;
   border-radius: 0 0 11px 11px;
   top: 100%;
   left: 0;
+  max-height: 0;
+  transition: max-height 0.45s ease-in-out, opacity 0.45s ease-in-out;
   width: 200px;
   z-index: 3000;
 }
@@ -164,10 +199,6 @@
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-}
-.searchform .input-group:focus-within {
-  outline: 2px solid rgb(255, 209, 91);
-  border-radius: 11px;
 }
 .searchform .input-group input[type=search] {
   border: none;

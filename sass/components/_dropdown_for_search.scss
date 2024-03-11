@@ -3,6 +3,15 @@
     border-radius: 11px;
     width: 200px;
     /* dropdown class containt already a relative position */
+
+    &:hover .option-list {
+        max-height: 280px;
+        opacity: 1;
+    }
+    &:not(:hover) .option-list {
+        max-height: 0;
+        opacity: 0;
+    }
     
     .dropdown-btn-filter {
         background-color: white;
@@ -13,19 +22,26 @@
         font-weight: 500;
         border: none;
         cursor: pointer;
-        
-        &:focus + .option-list, &:hover + .option-list, .option-list:hover {
-            display: block;
+
+        &:focus, &:hover {
+            border-radius: 11px 11px 0 0;
+        }
+
+        &:focus + .option-list, &:hover + .option-list {
+            max-height: 280px;
+            opacity: 1;
         }
     }
     
     .option-list {
-        display: none;
+        overflow: hidden;
         background-color: white;
         position: absolute;
         border-radius: 0 0 11px 11px;
         top: 100%;
         left: 0;
+        max-height: 0;
+        transition: max-height 0.45s ease-in-out, opacity 0.45s ease-in-out;
         width: 200px;
         z-index: 3000;
         
@@ -63,7 +79,7 @@
         ul {
             overflow-y: auto;
             scrollbar-width: thin;
-            max-height: 200px;  
+            max-height: 200px;
 
             a {
                 white-space: normal;

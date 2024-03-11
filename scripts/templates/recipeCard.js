@@ -3,11 +3,11 @@ export function recipeCard(recipesData) {
 	const { id, image, name, servings, ingredients, time, description, appliance, ustensils } = recipesData;
 
 	function recipeCardTemplate() {
-        // Créer le contenant de la carte
+        // Create the card container
 		const recipeCard = document.createElement("div");
 		recipeCard.classList.add("card", "recipe-card", "mb-5");
 
-        // Créer la partie pour afficher l'image et la durée de la recette
+        // Create the section to display the image and duration of the recipe
         const recipeCardImg = document.createElement("div");
         recipeCardImg.className = "recipe-card__img";
 
@@ -23,7 +23,7 @@ export function recipeCard(recipesData) {
         recipeCardImg.appendChild(imageCard);
         recipeCardImg.appendChild(duration);
 
-        // Corps de la carte
+        // Card body
         const cardBody = document.createElement("div");
         cardBody.classList.add ("recipe-sequence", "card-body");
 
@@ -48,19 +48,19 @@ export function recipeCard(recipesData) {
         cardBody.appendChild(recipeDescription);
         cardBody.appendChild(h3Title2);
 
-        // Liste des ingrédients
+        // List of ingredients
         const ingredientsList = document.createElement("div");
         ingredientsList.classList.add("ingredients-list", "d-flex", "flex-row", "flex-wrap", "card-body");
 
-        // Parcourir le tableau des ingrédients
+        // Browse the ingredients table
         ingredients.forEach(item => {
 
             const p = document.createElement("p");
-            if (item) { /*Si un item est présent */
+            if (item) {
 
-                if (item?.ingredient) { /*Vérifier si ingredient */
-                    if (item?.quantity) { /*Vérifier si quantity */
-                        if (item?.unit) { /*Vérifier si unit */
+                if (item?.ingredient) { /* Check if ingredient */
+                    if (item?.quantity) { /* Check if quantity */
+                        if (item?.unit) { /* Check if unit */
                             p.innerHTML = `${item.ingredient}<br><span>${item.quantity} ${item.unit}</span>`;
 
                             
@@ -74,11 +74,11 @@ export function recipeCard(recipesData) {
                     }
                 }
             }
-            // Intégrer les balises p
+            // Integrating <p>
             ingredientsList.appendChild(p);
         });
 
-        // Intégrer les éléments dans le contenant de la carte
+        // Integrate the elements into the card container
         recipeCard.appendChild(recipeCardImg);
         recipeCard.appendChild(cardBody);
         recipeCard.appendChild(ingredientsList);

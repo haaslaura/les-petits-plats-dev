@@ -7,6 +7,8 @@ This JavaScript code is used for dropdown menus to sort recipes
 // Importing data and functions
 import recipes from "../../data/recipes.js";
 
+
+
 //1 - Afficher les listes
 
 /************************

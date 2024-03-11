@@ -5,6 +5,9 @@
     border-radius: 10px;
     min-width: 200px;
     overflow: hidden;
+    transform-origin: 50% top;
+    transition: max-height 0.45s ease-in-out, opacity 0.45s ease-in-out;
+    
     
     p {
         margin: 0;
@@ -18,5 +21,24 @@
         border: none;
         text-indent: 3000px;
         cursor: pointer;
+    }
+}
+
+/* Animations */
+.closing-animation {
+    animation: closingAnimation 0.3s ease-in-out; /* Ajustez la durée et l'effet d'animation selon vos besoins */
+    transform-origin: top center;
+}
+
+@keyframes closingAnimation {
+    0% {
+        opacity: 1;
+        max-height: 100px;
+        transform: scaleY(1);
+    }
+    100% {
+        opacity: 0;
+        max-height: 0;
+        transform: scaleY(0);
     }
 }
