@@ -59,7 +59,7 @@
                 <div class="filter-section d-flex flex-wrap justify-content-start align-items-center mb-3">
 
                     <!-- Ingredients filter -->
-                    <div id="dropdown-ingredients" class="dropdown filter d-flex flex-wrap me-3 mb-3">
+                    <div id="dropdown-ingredients" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox">
                         
                             <button
                             class="dropdown-btn-filter d-flex justify-content-between"
@@ -69,7 +69,7 @@
                             aria-haspopup="true"
                             aria-expanded="false">
                             <span>Ingrédients</span>
-                            <span><img src="assets/icones/arrow-down.svg" alt=""></span>
+                            <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                             </button>
                         
                         <div class="option-list p-2" aria-labelledby="dropdownMenuButton-ingredients">
@@ -80,20 +80,20 @@
                                 id="ingredient-search"
                                 type="search"
                                 name="q"
-                                autocomplete="false"
+                                aria-autocomplete="list"
                                 aria-label="Chercher un ingrédient">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
                                     <button>Chercher</button>
                                 </div>
                             </form>
-                            <ul class="list-unstyled mb-0 mt-3 ">
+                            <ul class="list-unstyled mb-0 mt-3" role="listbox">
                                 <!-- Ingredients list -->
                             </ul>                        
                         </div>
                     </div>
                     
                     <!-- Appliances filter -->
-                    <div id="dropdown-appliances" class="dropdown filter d-flex flex-wrap me-3 mb-3">
+                    <div id="dropdown-appliances" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox">
                         
                         <button
                         class="dropdown-btn-filter d-flex justify-content-between"
@@ -103,7 +103,7 @@
                         aria-haspopup="true"
                         aria-expanded="false">
                         <span>Appareils</span>
-                        <span><img src="assets/icones/arrow-down.svg" alt=""></span>
+                        <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                         </button>
 
                         <div class="option-list p-2" aria-labelledby="dropdownMenuButton-appliances">
@@ -114,20 +114,20 @@
                                 id="appliance-search"
                                 type="search"
                                 name="q"
-                                autocomplete="false"
+                                aria-autocomplete="list"
                                 aria-label="Chercher un appareil">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
                                     <button>Chercher</button>
                                 </div>
                             </form>
-                            <ul class="list-unstyled mb-0 mt-3 ">
+                            <ul class="list-unstyled mb-0 mt-3 " role="listbox">
                                 <!-- Appliances list -->
                             </ul>                        
                         </div>
                     </div>
                 
                     <!-- Utils filter -->
-                    <div id="dropdown-utils" class="dropdown filter d-flex flex-wrap me-3 mb-3">
+                    <div id="dropdown-utils" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox">
 
                         <button
                         class="dropdown-btn-filter d-flex justify-content-between"
@@ -137,7 +137,7 @@
                         aria-haspopup="true"
                         aria-expanded="false">
                         <span>Ustensiles</span>
-                        <span><img src="assets/icones/arrow-down.svg" alt=""></span>
+                        <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                         </button>
 
                         <div class="option-list p-2" aria-labelledby="dropdownMenuButton-utils">
@@ -148,13 +148,13 @@
                                 id="utensil-search"
                                 type="search"
                                 name="q"
-                                autocomplete="false"
+                                aria-autocomplete="list"
                                 aria-label="Chercher un ustensiles">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
                                     <button>Chercher</button>
                                 </div>
                             </form>
-                            <ul class="list-unstyled mb-0 mt-3 ">
+                            <ul class="list-unstyled mb-0 mt-3 " role="listbox">
                                 <!-- Utils list -->
                             </ul>                        
                         </div>

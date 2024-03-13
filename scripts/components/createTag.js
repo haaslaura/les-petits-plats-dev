@@ -14,13 +14,13 @@ const dropdownArray = document.querySelectorAll(".option-list");
 
 dropdownArray.forEach(dropdown => {
     
-    // Browse each table in each list
-    dropdown.querySelectorAll(".list-unstyled li").forEach(item => {
+	// Browse each table in each list
+	dropdown.querySelectorAll(".list-unstyled li").forEach(item => {
         
-        item.addEventListener("click", function(event) {
+		item.addEventListener("click", function(event) {
 
-            event.preventDefault();
-            tagManager.createTag(item.textContent);
-        });
-    });         
+			event.preventDefault();
+			tagManager.createTag(item.textContent);
+		});
+	});         
 });

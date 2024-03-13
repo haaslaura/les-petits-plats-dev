@@ -128,9 +128,11 @@
   cursor: pointer;
 }
 .filter .dropdown-btn-filter:focus, .filter .dropdown-btn-filter:hover {
-  border-radius: 11px 11px 0 0;
+  outline: 3px solid rgb(255, 209, 91);
+  border-radius: 11px;
+  z-index: 3001;
 }
-.filter .dropdown-btn-filter:focus + .option-list, .filter .dropdown-btn-filter:hover + .option-list {
+.filter .dropdown-btn-filter:hover + .option-list {
   max-height: 280px;
   opacity: 1;
 }
@@ -192,7 +194,6 @@
 
 .searchform {
   margin-bottom: 16%;
-  overflow: hidden;
 }
 .searchform .input-group {
   position: relative;
@@ -236,6 +237,7 @@
   border: none;
   text-indent: 3000px;
   cursor: pointer;
+  overflow: hidden;
 }
 .searchform .input-group .bg-btn-loop button[type=submit]:hover, .searchform .input-group .bg-btn-loop button[type=submit]:focus {
   background: url(../../assets/icones/loop-cta-hover.svg) center center/100% 100% no-repeat;

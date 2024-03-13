@@ -24,10 +24,12 @@
         cursor: pointer;
 
         &:focus, &:hover {
-            border-radius: 11px 11px 0 0;
+            outline: 3px solid $color-main;
+            border-radius: 11px;
+            z-index: 3001   ;
         }
 
-        &:focus + .option-list, &:hover + .option-list {
+        &:hover + .option-list {
             max-height: 280px;
             opacity: 1;
         }
