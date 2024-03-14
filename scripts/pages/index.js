@@ -7,7 +7,7 @@ This JavaScript code is linked to the index.html page
 // Importing data and functions
 import recipes from "../../data/recipes.js";
 import { recipeCard } from "../templates/recipeCard.js";
-
+import { DropdownManager } from "../classes/DropdownManager.js";
 
 
 function displayRecipes(dataArrow) {
@@ -37,3 +37,9 @@ function initPage() {
 }
 
 initPage();
+
+
+// Initialise classes
+const ingredientsDropdown = new DropdownManager("dropdown-ingredients", recipes, "ingredients");
+const appliancesDropdown = new DropdownManager("dropdown-appliances", recipes, "appliance");
+const ustensilssDropdown = new DropdownManager("dropdown-utils", recipes, "ustensils");
