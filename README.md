@@ -1,4 +1,4 @@
-# Code du projet 7, formation Openclassrooms - Parcours Front-end
+# Projet 7, formation Openclassrooms - Parcours Front-end
 ## Les Petits Plats (en cours)
 Développer un algorithme de recherche efficace pour une plateforme de recettes de cuisine
 
@@ -12,8 +12,8 @@ Après avoir édité des livres de cuisine pendant plusieurs années, l’entrep
 - Compléter la fiche d'investigation, accompagnée d'un algorigramme.
 
 ## Objectifs Pédagogiques
-Analyser un problème informatique
-Développer un algorithme pour résoudre un problème
+- Analyser un problème informatique
+- Développer un algorithme pour résoudre un problème
 
 ## 🛠 Outils
 - Figma
