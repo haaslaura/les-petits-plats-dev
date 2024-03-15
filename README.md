@@ -15,13 +15,13 @@ Après avoir édité des livres de cuisine pendant plusieurs années, l’entrep
 Analyser un problème informatique
 Développer un algorithme pour résoudre un problème
 
-## Outils
-Figma
-Bootstrap
-Sass
-EsLint
-Résultat JSBENCH
-Validateur W3C
-JavaScript Vanilla
-Ecometer
-Draw.io
+## 🛠 Outils
+- Figma
+- Bootstrap
+- Sass
+- EsLint
+- Résultat JSBENCH
+- Validateur W3C
+- JavaScript Vanilla
+- Ecometer
+- Draw.io
