@@ -14,16 +14,6 @@ export class DropdownManager {
 		this.capitalizedItemsArray = [];
 		this.dropdownElement = document.querySelector(`#${this.id} ul`);
 
-		/* Input event manager for the combobox */
-		/*this.comboboxNode = document.querySelector(`#${this.id} .form-control`);
-
-		this.comboboxNode.addEventListener("input", this.filterOptions.bind(this));
-		this.comboboxNode.addEventListener("keydown", (event) => {
-			if (event.key === "Backspace" || event.key === "Delete") {
-				this.filterOptions();
-			}
-		});*/
-
 		this.initialize();
 	}
 
@@ -33,7 +23,6 @@ export class DropdownManager {
 		this.capitalizeItems();
 		this.renderDropdownItems(this.capitalizedItemsArray);
 		this.initializeEventListeners();
-		this.filterOptions();
 	}
 
     /* Create the list of the elements */
@@ -101,34 +90,6 @@ export class DropdownManager {
 		});
 	}
 
-	// Combobox autocomplete	
-	filterOptions() {
-		// Retrieve the current input value
-		const filter = this.comboboxNode.value.trim().toLowerCase();
-
-
-		const filteredOptions = [];		
-		let count = 0;
-
-		if (filter.length > 0) {
-			const regex = new RegExp(filter, 'i');
-			this.capitalizedItemsArray.forEach(item => {
-				if (regex.test(item)) {
-					// Add the element to filteredOptions
-					count = filteredOptions.push(item);
-				}
-			});
-	
-			// Update the options in the drop-down list according to the filtered options
-			if (count > 0) {
-				this.renderDropdownItems(filteredOptions);
-			} else {
-				this.dropdownElement.innerHTML = "Aucun élément ne correspond";
-			}
-		}
-	}
-
-
     /* Navigation management & events */
 
 	// Keyboard navigation function
@@ -189,14 +150,5 @@ export class DropdownManager {
 		dropdownBtn.addEventListener("mouseover", this.handleMouseHover.bind(this));
 		dropdownBtn.addEventListener("mouseout", this.handleMouseHover.bind(this));
 
-		/* For the input */
-		this.comboboxNode = document.querySelector(`#${this.id} .form-control`);
-
-		this.comboboxNode.addEventListener("input", this.filterOptions.bind(this));
-		this.comboboxNode.addEventListener("keydown", (event) => {
-			if (event.key === "Backspace" || event.key === "Delete") {
-				this.filterOptions();
-			}
-		});
 	}
 }
