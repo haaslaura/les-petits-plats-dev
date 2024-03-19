@@ -193,7 +193,7 @@
 }
 
 .searchform {
-  margin-bottom: 16%;
+  margin-bottom: 10%;
 }
 .searchform .input-group {
   position: relative;
@@ -272,8 +272,8 @@ header h1 {
   line-height: 2.5rem;
   text-wrap: balance;
   text-align: center;
-  margin-top: 16%;
-  margin-bottom: 8%;
+  margin-top: 10%;
+  margin-bottom: 6%;
   animation-name: text-appears;
   transition-timing-function: ease-out;
   animation-duration: 1000ms;
