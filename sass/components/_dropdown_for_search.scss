@@ -83,17 +83,18 @@
             scrollbar-width: thin;
             max-height: 200px;
 
-            a {
+            li {
                 white-space: normal;
                 line-height: 1.3rem;
 
-                &:hover, a:focus, a:active {
+                &:hover, &:focus, &:focus-visible {
                     background-color: $color-main;
-                }
-                &:focus {
                     border: none;
                     outline: none;
                 }
+            }
+            .tagged {
+                background-color: $color-main;
             }
         }
     }

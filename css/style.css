@@ -180,16 +180,17 @@
   scrollbar-width: thin;
   max-height: 200px;
 }
-.filter .option-list ul a {
+.filter .option-list ul li {
   white-space: normal;
   line-height: 1.3rem;
 }
-.filter .option-list ul a:hover, .filter .option-list ul a a:focus, .filter .option-list ul a a:active {
+.filter .option-list ul li:hover, .filter .option-list ul li:focus, .filter .option-list ul li:focus-visible {
   background-color: rgb(255, 209, 91);
-}
-.filter .option-list ul a:focus {
   border: none;
   outline: none;
+}
+.filter .option-list ul .tagged {
+  background-color: rgb(255, 209, 91);
 }
 
 .searchform {

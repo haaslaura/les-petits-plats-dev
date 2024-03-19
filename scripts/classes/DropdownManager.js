@@ -1,3 +1,5 @@
+import { TagManager } from "./TagManager.js";
+
 export class DropdownManager {
 	/**
      * 
@@ -13,6 +15,7 @@ export class DropdownManager {
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
 		this.dropdownElement = document.querySelector(`#${this.id} ul`);
+		this.comboboxNode = document.querySelector(`#${this.id} .form-control`);
 
 		this.initialize();
 	}
@@ -23,6 +26,8 @@ export class DropdownManager {
 		this.capitalizeItems();
 		this.renderDropdownItems(this.capitalizedItemsArray);
 		this.initializeEventListeners();
+		this.listElementAddClass();
+		this.filterOptions();
 	}
 
     /* Create the list of the elements */
@@ -75,33 +80,74 @@ export class DropdownManager {
 	renderDropdownItems(options) {
 
 		this.dropdownElement.innerHTML = "";
+		const tagManagerInstance = new TagManager();
 
 		options.forEach(item => {
 			const element = document.createElement("li");
 			element.setAttribute("role", "option");
-			const link = document.createElement("a");
-			link.classList.add("dropdown-item", "d-flex", "flex-wrap", "align-items-center", "gap-2", "py-2");
-			link.setAttribute("href", "#");
-			link.textContent = `${item}`;
-
-			element.appendChild(link);
+			element.classList.add("dropdown-item", "d-flex", "flex-wrap", "align-items-center", "py-2");
+			element.textContent = `${item}`;
 
 			this.dropdownElement.appendChild(element);
+
+			// Adds an event to create a new tag when an element is clicked
+			element.addEventListener("click", () =>	{
+				tagManagerInstance.createTag(element.textContent);
+				this.listElementAddClass(element);
+			});
 		});
 	}
 
-    /* Navigation management & events */
-
-	// Keyboard navigation function
-	handleKeyboardNavigation(event) {
-		if (event.key === "Enter") {
-			this.toggleDropdown();
+	// Add a class to the list item if the tag is created
+	listElementAddClass(element) {
+		
+		if(document.querySelectorAll(".tag")) {
+			const allTag = document.querySelectorAll(".tag p");
+			allTag.forEach(tag => {
+				
+				if (element.textContent === tag.textContent) {
+					element.classList.add("tagged");
+				} else {
+					element.classList.remove("tagged");
+				}
+			});
 		}
 	}
 
-    // Mouse-over function
-    handleMouseHover(event) {
+	// Combobox autocomplete	
+	filterOptions() {
+		// Retrieve the current input value
+		const filter = this.comboboxNode.value.trim().toLowerCase();
+
+
+		const filteredOptions = [];		
+		let count = 0;
+
+		if (filter.length > 0) {
+			const regex = new RegExp(filter, 'i');
+			this.capitalizedItemsArray.forEach(item => {
+				if (regex.test(item)) {
+					// Add the element to filteredOptions
+					count = filteredOptions.push(item);
+				}
+			});
+	
+			// Update the options in the drop-down list according to the filtered options
+			if (count > 0) {
+				this.renderDropdownItems(filteredOptions);
+			} else {
+				this.dropdownElement.innerHTML = "Aucun élément ne correspond";
+			}
+		}
+	}
+
+
+    /* Navigation management & events */
+
+    // Function for unfolding or folding the drop-down list
+    toggleDropdown(event) {
         const dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`);
+		const optionList = document.querySelector(`#${this.id} .option-list`);
         const arrowIcon = document.querySelector(`#${this.id} .arrow-icon`);
 
         const isExpanded = dropdownBtn.getAttribute("aria-expanded") === "true";
@@ -116,29 +162,23 @@ export class DropdownManager {
                 dropdownBtn.setAttribute("aria-expanded", "false");
                 arrowIcon.setAttribute("src", "assets/icones/arrow-down.svg");
             }
-        }
+
+        } else if (event.key === "Enter") {
+
+			if (!isExpanded) {
+				dropdownBtn.setAttribute("aria-expanded", "true");
+				optionList.style.maxHeight = "280px";
+				optionList.style.opacity = "1";
+				arrowIcon.setAttribute("src", "assets/icones/arrow-up.svg");
+			} else {
+				dropdownBtn.setAttribute("aria-expanded", "false");
+				optionList.style.maxHeight = "0";
+				optionList.style.opacity = "0";
+				arrowIcon.setAttribute("src", "assets/icones/arrow-down.svg");
+			}
+		}
     }
 
-	// Function for unfolding or folding the drop-down list
-	toggleDropdown() {
-		const dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`);
-		const optionList = document.querySelector(`#${this.id} .option-list`);
-        const arrowIcon = document.querySelector(`#${this.id} .arrow-icon`);
-
-		const isExpanded = dropdownBtn.getAttribute("aria-expanded") === "true";
-
-		if (!isExpanded) {
-			dropdownBtn.setAttribute("aria-expanded", "true");
-			optionList.style.maxHeight = "280px";
-			optionList.style.opacity = "1";
-            arrowIcon.setAttribute("src", "assets/icones/arrow-up.svg");
-		} else {
-			dropdownBtn.setAttribute("aria-expanded", "false");
-			optionList.style.maxHeight = "0";
-			optionList.style.opacity = "0";
-            arrowIcon.setAttribute("src", "assets/icones/arrow-down.svg");
-		}
-	}
 
 	// Initialization method for configuring event listeners
 	initializeEventListeners() {
@@ -146,9 +186,19 @@ export class DropdownManager {
 		/* For the button */
 		const dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`);
 
-		dropdownBtn.addEventListener("keydown", this.handleKeyboardNavigation.bind(this));
-		dropdownBtn.addEventListener("mouseover", this.handleMouseHover.bind(this));
-		dropdownBtn.addEventListener("mouseout", this.handleMouseHover.bind(this));
+		//dropdownBtn.addEventListener("keydown", this.handleKeyboardNavigation.bind(this));
+		dropdownBtn.addEventListener("keydown", this.toggleDropdown.bind(this));
+		dropdownBtn.addEventListener("mouseover", this.toggleDropdown.bind(this));
+		dropdownBtn.addEventListener("mouseout", this.toggleDropdown.bind(this));
 
+		/* For the input */
+		
+
+		this.comboboxNode.addEventListener("input", this.filterOptions.bind(this));
+		this.comboboxNode.addEventListener("keydown", (event) => {
+			if (event.key === "Backspace" || event.key === "Delete") {
+				this.filterOptions();
+			}
+		});
 	}
 }
