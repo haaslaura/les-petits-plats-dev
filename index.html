@@ -14,11 +14,10 @@
     <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Script -->
     <script type="module" src="scripts/pages/index.js"></script>
-    <script src="scripts/templates/searchBar.js" defer></script>
     <script type="module" src="scripts/components/createTag.js"></script>
     <script type="module" src="scripts/classes/TagManager.js"></script>
 </head>
-<body>
+<body class="bg-light">
     
     <!-- Header, search -->
     <header class="container-fluid">
@@ -36,7 +35,10 @@
                     type="search"
                     name="q"
                     aria-label="Chercher une recette ou un ingrédient"
-                    placeholder="Chercher une recette, un ingrédient, ...">
+                    placeholder="Chercher une recette, un ingrédient, ..."
+                    maxlength="120"
+                    pattern="[A-Za-zÀ-ÿ ]{0,120}"
+                    title="Effectuez une recherche avec 4 lettres minimum">
                     <div class="bg-white d-flex justify-content-center align-items-center bg-btn-loop">
                         <button class="loop-icon" type="submit">Rechercher</button>
                     </div>
@@ -46,13 +48,13 @@
         </div>
     </header>
     
-    <main class="container-fluid bg-light pb-4">
+    <main class="container-fluid pb-4">
         
         <!-- All filters options -->
         <section class="container pt-5" aria-label="Choisir des options pour filter les recettes">
 
             <!-- Dropdow +  Nb receipies -->
-            <div class="filter-section d-flex flex-nowrap justify-content-between align-items-center">
+            <div class="filter-section d-flex flex-wrap-reverse flex-md-nowrap justify-content-between align-items-center">
 
                 <!-- Dropdown -->
                 <div class="filter-section d-flex flex-wrap justify-content-start align-items-center mb-3">
@@ -80,7 +82,10 @@
                                 type="search"
                                 name="q"
                                 aria-autocomplete="list"
-                                aria-label="Chercher un ingrédient">
+                                aria-label="Chercher un ingrédient"
+                                maxlength="120"
+                                pattern="[A-Za-zÀ-ÿ ]{0,120}"
+                                title="Inscrivez un ingrédient en toutes lettres">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
                                     <button>Chercher</button>
                                 </div>
@@ -114,7 +119,10 @@
                                 type="search"
                                 name="q"
                                 aria-autocomplete="list"
-                                aria-label="Chercher un appareil">
+                                aria-label="Chercher un appareil"
+                                maxlength="120"
+                                pattern="[A-Za-zÀ-ÿ ]{0,120}"
+                                title="Inscrivez un appareil en toutes lettres">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
                                     <button>Chercher</button>
                                 </div>
@@ -148,7 +156,10 @@
                                 type="search"
                                 name="q"
                                 aria-autocomplete="list"
-                                aria-label="Chercher un ustensiles">
+                                aria-label="Chercher un ustensiles"
+                                maxlength="120"
+                                pattern="[A-Za-zÀ-ÿ ]{0,120}"
+                                title="Inscrivez un ustensile en toutes lettres">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
                                     <button>Chercher</button>
                                 </div>
@@ -161,7 +172,7 @@
                 </div>
 
                 <!-- Nb receipies -->
-                <p><span>1500</span> recettes</p>
+                <p class="mb-4"><span>1500</span> recettes</p>
             </div>
 
 

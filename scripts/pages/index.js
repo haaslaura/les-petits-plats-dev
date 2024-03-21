@@ -6,34 +6,17 @@ This JavaScript code is linked to the index.html page
 
 // Importing data and functions
 import recipes from "../../data/recipes.js";
-import { recipeCard } from "../templates/recipeCard.js";
+import { displayRecipes } from "../utils/displayRecipes.js";
 import { DropdownManager } from "../classes/DropdownManager.js";
-
-
-function displayRecipes(dataArrow) {
-
-	// Section liste des recettes
-	const cardSection = document.querySelector(".recipes-list"); /* section bien obtenue */
-
-	dataArrow.forEach(recipe => {
-
-		// Usage du template
-		const cardTemplate = recipeCard(recipe);
-		const modelRecipeCard = cardTemplate.recipeCardTemplate();
-
-		cardSection.appendChild(modelRecipeCard);
-	});
-}
+import { SearchBar } from "../classes/SearchBar.js";
+import { displayRecipesNumber } from "../utils/displayRecipesNumber.js";
 
 
 function initPage() {
-
-	// Vider le contenu de la section
-	document.querySelector(".recipes-list").innerHTML = ""; /* Section bien vidée */
-
-	// Intégrer les recettes
+	// Empty the contents of the section
+	document.querySelector(".recipes-list").innerHTML = "";
 	displayRecipes(recipes);
-
+	displayRecipesNumber(recipes);
 }
 
 initPage();
@@ -43,3 +26,4 @@ initPage();
 const ingredientsDropdown = new DropdownManager("dropdown-ingredients", recipes, "ingredients");
 const appliancesDropdown = new DropdownManager("dropdown-appliances", recipes, "appliance");
 const ustensilssDropdown = new DropdownManager("dropdown-utils", recipes, "ustensils");
+const searchBar = new SearchBar(recipes);

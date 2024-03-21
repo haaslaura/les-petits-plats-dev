@@ -222,6 +222,11 @@
   font-family: "Manrope", sans-serif;
   color: #7A7A7A;
 }
+@media screen and (max-width: 576px) {
+  .searchform .input-group input[type=search]::placeholder {
+    font-size: 0.85rem;
+  }
+}
 .searchform .input-group input[type=search]:focus {
   outline: none;
   box-shadow: none;
@@ -309,6 +314,10 @@ p {
   font-family: "Anton", sans-serif;
   font-size: 1.3rem;
   margin: 0;
+}
+
+.error-message {
+  margin-bottom: 20%;
 }
 
 /*# sourceMappingURL=style.css.map */

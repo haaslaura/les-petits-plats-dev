@@ -14,8 +14,11 @@ export class DropdownManager {
 		this.uniqueItems = new Set();
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
-		this.dropdownElement = document.querySelector(`#${this.id} ul`);
-		this.comboboxNode = document.querySelector(`#${this.id} .form-control`);
+
+		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
+		this.combobox = document.querySelector(`#${this.id} .option-list`); // The combobox node
+		this.dropdownInput = document.querySelector(`#${this.id} .form-control`); // The Input
+		this.dropdownElement = document.querySelector(`#${this.id} ul`); // The elements list		
 
 		this.initialize();
 	}
@@ -27,7 +30,6 @@ export class DropdownManager {
 		this.renderDropdownItems(this.capitalizedItemsArray);
 		this.initializeEventListeners();
 		this.listElementAddClass();
-		this.filterOptions();
 	}
 
     /* Create the list of the elements */
@@ -117,14 +119,12 @@ export class DropdownManager {
 	// Combobox autocomplete	
 	filterOptions() {
 		// Retrieve the current input value
-		const filter = this.comboboxNode.value.trim().toLowerCase();
-
-
+		const filter = this.dropdownInput.value.trim().toLowerCase();
 		const filteredOptions = [];		
 		let count = 0;
 
 		if (filter.length > 0) {
-			const regex = new RegExp(filter, 'i');
+			const regex = new RegExp(filter, 'gi');
 			this.capitalizedItemsArray.forEach(item => {
 				if (regex.test(item)) {
 					// Add the element to filteredOptions
@@ -144,58 +144,60 @@ export class DropdownManager {
 
     /* Navigation management & events */
 
-    // Function for unfolding or folding the drop-down list
-    toggleDropdown(event) {
-        const dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`);
-		const optionList = document.querySelector(`#${this.id} .option-list`);
-        const arrowIcon = document.querySelector(`#${this.id} .arrow-icon`);
+    // Functions for unfolding or folding the drop-down list
+	dropdownOpen() {
+		this.dropdownBtn.setAttribute("aria-expanded", "true");
+		this.combobox.style.maxHeight = "280px";
+		this.combobox.style.opacity = "1";
+		this.dropdownBtn.querySelector(".arrow-icon").setAttribute("src", "assets/icones/arrow-up.svg");
+	}
+	dropdownClose() {
+		this.dropdownBtn.setAttribute("aria-expanded", "false");
+		this.combobox.style.maxHeight = "0";
+		this.combobox.style.opacity = "0";
+		this.dropdownBtn.querySelector(".arrow-icon").setAttribute("src", "assets/icones/arrow-down.svg");
+	}
 
-        const isExpanded = dropdownBtn.getAttribute("aria-expanded") === "true";
-
-        if (event.type === "mouseover") {
-            if (!isExpanded) {
-                dropdownBtn.setAttribute("aria-expanded", "true");
-                arrowIcon.setAttribute("src", "assets/icones/arrow-up.svg");
-            }
-        } else if (event.type === "mouseout") {
-            if (isExpanded) {
-                dropdownBtn.setAttribute("aria-expanded", "false");
-                arrowIcon.setAttribute("src", "assets/icones/arrow-down.svg");
-            }
-
-        } else if (event.key === "Enter") {
-
-			if (!isExpanded) {
-				dropdownBtn.setAttribute("aria-expanded", "true");
-				optionList.style.maxHeight = "280px";
-				optionList.style.opacity = "1";
-				arrowIcon.setAttribute("src", "assets/icones/arrow-up.svg");
-			} else {
-				dropdownBtn.setAttribute("aria-expanded", "false");
-				optionList.style.maxHeight = "0";
-				optionList.style.opacity = "0";
-				arrowIcon.setAttribute("src", "assets/icones/arrow-down.svg");
-			}
+    toggleDropdown() {
+        const isExpanded = this.dropdownBtn.getAttribute("aria-expanded") === "true";
+		
+		if (!isExpanded) {
+			this.dropdownOpen();			
+		} else {
+			this.dropdownClose();
 		}
     }
-
 
 	// Initialization method for configuring event listeners
 	initializeEventListeners() {
 		
 		/* For the button */
-		const dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`);
 
-		//dropdownBtn.addEventListener("keydown", this.handleKeyboardNavigation.bind(this));
-		dropdownBtn.addEventListener("keydown", this.toggleDropdown.bind(this));
-		dropdownBtn.addEventListener("mouseover", this.toggleDropdown.bind(this));
-		dropdownBtn.addEventListener("mouseout", this.toggleDropdown.bind(this));
+		// Hover
+		this.dropdownBtn.addEventListener("mouseover", this.dropdownOpen.bind(this));
+		// Hover perdu
+		this.dropdownBtn.addEventListener("mouseout", this.dropdownClose.bind(this));
 
-		/* For the input */
+		// Entrée + Entrée bis (ouvrir/fermer) + Echap
+		this.dropdownBtn.addEventListener("keydown", (event) => {
+			if (event.key === "Enter") {
+				this.toggleDropdown();
+			}
+			if (event.key === "Escape") {
+				this.dropdownClose();
+			}
+		});
+
+		// Click
+		// Re click
+		// Click externe
+
+		//dropdownBtn.addEventListener("click", this.closeDropdown.bind(this));
+
 		
-
-		this.comboboxNode.addEventListener("input", this.filterOptions.bind(this));
-		this.comboboxNode.addEventListener("keydown", (event) => {
+		/* For the input */
+		this.dropdownInput.addEventListener("input", this.filterOptions.bind(this));
+		this.dropdownInput.addEventListener("keydown", (event) => {
 			if (event.key === "Backspace" || event.key === "Delete") {
 				this.filterOptions();
 			}

@@ -47,6 +47,15 @@ export class TagManager {
 			// Remove the tag from the DOM
 			tag.remove();
 
+			// Remove a class of the element list dropdwown when the associated tag is closed
+			document.querySelectorAll(".option-list ul").forEach(list => {
+				list.querySelectorAll("li").forEach(item => {
+					if(tag.querySelector("p").textContent === item.textContent) {
+						item.classList.remove("tagged");
+					}
+				});				
+			});
+
 			// Remove the tag from the tagList
 			const index = this.tagList.indexOf(tag);
 			if (index !== -1) {
