@@ -3,15 +3,6 @@
     border-radius: 11px;
     width: 200px;
     /* dropdown class containt already a relative position */
-
-    &:hover .option-list {
-        max-height: 280px;
-        opacity: 1;
-    }
-    &:not(:hover) .option-list {
-        max-height: 0;
-        opacity: 0;
-    }
     
     .dropdown-btn-filter {
         background-color: white;
@@ -28,11 +19,6 @@
             border-radius: 11px;
             z-index: 3001   ;
         }
-
-        &:hover + .option-list {
-            max-height: 280px;
-            opacity: 1;
-        }
     }
     
     .option-list {
@@ -42,7 +28,10 @@
         border-radius: 0 0 11px 11px;
         top: 100%;
         left: 0;
-        max-height: 0;
+
+        max-height: 0px;
+        opacity: 0;
+
         transition: max-height 0.45s ease-in-out, opacity 0.45s ease-in-out;
         width: 200px;
         z-index: 3000;

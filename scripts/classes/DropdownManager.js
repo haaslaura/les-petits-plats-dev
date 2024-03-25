@@ -15,6 +15,7 @@ export class DropdownManager {
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
 
+		this.dropdown = document.getElementById(`${this.id}`); // The dropdown
 		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
 		this.combobox = document.querySelector(`#${this.id} .option-list`); // The combobox node
 		this.dropdownInput = document.querySelector(`#${this.id} .form-control`); // The Input
@@ -24,7 +25,7 @@ export class DropdownManager {
 	}
 
 	initialize() {
-		this.collectUniqueItems();
+		this.collectUniqueItems(this.dataArray);
 		this.convertItemsToArray();
 		this.capitalizeItems();
 		this.renderDropdownItems(this.capitalizedItemsArray);
@@ -32,12 +33,18 @@ export class DropdownManager {
 		this.listElementAddClass();
 	}
 
+	/***********************************/
     /* Create the list of the elements */
+	/***********************************/
+
 
 	// Browse the recipe table to collect unique items
-	collectUniqueItems() {
-		this.dataArray.forEach(item => {
+	collectUniqueItems(data) {
+		debugger
+		console.log(data);
 
+		data.forEach(item => {
+			
 			if (item?.[this.dataKey]) {
 				switch (typeof item[this.dataKey]) {
 
@@ -60,6 +67,8 @@ export class DropdownManager {
 				} 
 			}  
 		});
+
+
 	}
 
 	// Create an array of unique elements
@@ -76,8 +85,9 @@ export class DropdownManager {
 		this.renderDropdownItems(this.capitalizedItemsArray);
 	}
 
-
+	/******************/
     /* Create the DOM */
+	/******************/
 
 	renderDropdownItems(options) {
 
@@ -116,8 +126,11 @@ export class DropdownManager {
 		}
 	}
 
-	// Combobox autocomplete	
-	filterOptions() {
+	/***************************/
+	/* Manage filter functions */
+	/***************************/
+	
+	comboboxAutocomplete() {
 		// Retrieve the current input value
 		const filter = this.dropdownInput.value.trim().toLowerCase();
 		const filteredOptions = [];		
@@ -141,8 +154,18 @@ export class DropdownManager {
 		}
 	}
 
+	filterRecipiesWithTag() {
 
+	}
+
+	// Il reste :
+	// à actualiser les champs de recherche avancée lorsque les recettes sont triés
+	// Trier les recettes lorsque qu'un tag est séléctionné
+
+
+	/**********************************/
     /* Navigation management & events */
+	/**********************************/
 
     // Functions for unfolding or folding the drop-down list
 	dropdownOpen() {
@@ -159,10 +182,10 @@ export class DropdownManager {
 	}
 
     toggleDropdown() {
-        const isExpanded = this.dropdownBtn.getAttribute("aria-expanded") === "true";
-		
+	const isExpanded = this.dropdownBtn.getAttribute("aria-expanded") === "true";
+
 		if (!isExpanded) {
-			this.dropdownOpen();			
+			this.dropdownOpen();
 		} else {
 			this.dropdownClose();
 		}
@@ -171,35 +194,45 @@ export class DropdownManager {
 	// Initialization method for configuring event listeners
 	initializeEventListeners() {
 		
-		/* For the button */
+		/* For open/close dropdown */
 
-		// Hover
-		this.dropdownBtn.addEventListener("mouseover", this.dropdownOpen.bind(this));
-		// Hover perdu
-		this.dropdownBtn.addEventListener("mouseout", this.dropdownClose.bind(this));
+		// If the screen is not touch-sensitive
+		if (!window.hasOwnProperty('ontouchstart')) {
 
-		// Entrée + Entrée bis (ouvrir/fermer) + Echap
-		this.dropdownBtn.addEventListener("keydown", (event) => {
-			if (event.key === "Enter") {
-				this.toggleDropdown();
-			}
-			if (event.key === "Escape") {
-				this.dropdownClose();
-			}
-		});
+			// Setting up hover events
+			this.dropdown.addEventListener("mouseover", this.dropdownOpen.bind(this));
+			this.dropdown.addEventListener("mouseout", this.dropdownClose.bind(this));
 
-		// Click
-		// Re click
-		// Click externe
+			// Setting up keyboard Enter button events
+			this.dropdownBtn.addEventListener("keydown", (event) => {
+				if (event.key === "Enter") {
 
-		//dropdownBtn.addEventListener("click", this.closeDropdown.bind(this));
+					console.log("Avec tab + entrée :");
+					this.toggleDropdown();
+				}
+				if (event.key === "Escape") {
+					this.dropdownClose();
+				}
+			});
 
+		// If the screen is touch-sensitive 
+		} else {
+			// Setting up click events
+			this.dropdownBtn.addEventListener("click", this.toggleDropdown.bind(this));
+
+			// Add an event to close the dropdown on an external click
+			document.addEventListener("click", (event) => {
+				if (!this.dropdown.contains(event.target)) {
+					this.dropdownClose();
+				}
+			});
+		}
 		
 		/* For the input */
-		this.dropdownInput.addEventListener("input", this.filterOptions.bind(this));
+		this.dropdownInput.addEventListener("input", this.comboboxAutocomplete.bind(this));
 		this.dropdownInput.addEventListener("keydown", (event) => {
 			if (event.key === "Backspace" || event.key === "Delete") {
-				this.filterOptions();
+				this.comboboxAutocomplete();
 			}
 		});
 	}

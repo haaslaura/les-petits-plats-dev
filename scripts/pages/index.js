@@ -23,7 +23,7 @@ initPage();
 
 
 // Initialise classes
-const ingredientsDropdown = new DropdownManager("dropdown-ingredients", recipes, "ingredients");
-const appliancesDropdown = new DropdownManager("dropdown-appliances", recipes, "appliance");
-const ustensilssDropdown = new DropdownManager("dropdown-utils", recipes, "ustensils");
+//const ingredientsDropdown = new DropdownManager("dropdown-ingredients", recipes, "ingredients");
+//const appliancesDropdown = new DropdownManager("dropdown-appliances", recipes, "appliance");
+//const ustensilssDropdown = new DropdownManager("dropdown-utils", recipes, "ustensils");
 const searchBar = new SearchBar(recipes);

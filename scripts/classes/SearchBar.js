@@ -1,5 +1,7 @@
 import { displayRecipes } from "../utils/displayRecipes.js";
 import { displayRecipesNumber } from "../utils/displayRecipesNumber.js";
+import { DropdownManager } from "./DropdownManager.js";
+
 export class SearchBar {
 	/**
      * @param {Array} data
@@ -10,6 +12,10 @@ export class SearchBar {
           this.searchBar = document.getElementById("searchbar");
           this.searchButton = document.querySelector(".loop-icon");
           this.errorMessage = null;
+
+          this.ingredientsDropdown = new DropdownManager("dropdown-ingredients", this.data, "ingredients");
+          this.appliancesDropdown = new DropdownManager("dropdown-appliances", this.data, "appliance");
+          this.ustensilssDropdown = new DropdownManager("dropdown-utils", this.data, "ustensils");
 
           this.initialize();	
 	}
@@ -53,13 +59,17 @@ export class SearchBar {
           mainContainer.appendChild(this.errorMessage);
      }
 
+     /***************************/
+	/* Manage filter functions */
+	/***************************/
+
      // WORKING WITH NATIVE LOOP
      filterRecipies() {
 
           // Retrieve the current input value
           const searchBarValue = this.searchBar.value.trim().toLowerCase();
           const recipes = this.data;
-          const filteredRecipies = [];		
+          const filteredRecipes = [];		
           let count = 0;
 
           document.querySelector(".recipes-list").innerHTML = ""; // Empty section
@@ -77,18 +87,18 @@ export class SearchBar {
                     let continu = true;
 
                     // If content searchBar === content in recipe.[information]
-                    // Push recipe into filteredRecipies
+                    // Push recipe into filteredRecipes
 
                     if(continu && regex.test(recipes[i].name)) {
-                         count = filteredRecipies.push(recipes[i]);
+                         count = filteredRecipes.push(recipes[i]);
                          continu = false; // Stop ici
                     }
                     if (continu && regex.test(recipes[i].description)) {
-                         count = filteredRecipies.push(recipes[i]);
+                         count = filteredRecipes.push(recipes[i]);
                          continu = false; // Stop ici
                     }
                     if (continu && regex.test(recipes[i].appliance)) {
-                         count = filteredRecipies.push(recipes[i]);
+                         count = filteredRecipes.push(recipes[i]);
                          continu = false; // Stop ici
                     }
 
@@ -97,7 +107,7 @@ export class SearchBar {
                     for (let g = 0; g < ingredientsList.length; g++){
 
                          if(continu && regex.test(ingredientsList[g].ingredient)) { 
-                              count = filteredRecipies.push(recipes[i]);
+                              count = filteredRecipes.push(recipes[i]);
                               continu = false; // Stop ici
                          }
                     }
@@ -107,21 +117,32 @@ export class SearchBar {
                     for (let g = 0; g < ustensilsList.length; g++){
 
                          if(continu && regex.test(ustensilsList[g])) {
-                              count = filteredRecipies.push(recipes[i]);
+                              count = filteredRecipes.push(recipes[i]);
                               continu = false; // Stop ici
                          }
                     }
                }
 
                if (count > 0) {
-                    displayRecipes(filteredRecipies);
-                    displayRecipesNumber(filteredRecipies);
+                    displayRecipes(filteredRecipes);
+                    displayRecipesNumber(filteredRecipes);
+                    
+                    // Utiliser la fonction du DropDownManager
+                    // Pour passer le nouveau tableau filtré
+                    console.log(filteredRecipes);
+                    this.ingredientsDropdown.collectUniqueItems(filteredRecipes);
+                    this.ustensilssDropdown.collectUniqueItems(filteredRecipes);
+                    this.appliancesDropdown.collectUniqueItems(filteredRecipes);
+                    
                } else {
                     this.displayErrorMessage(searchBarValue);
                }       
           }
      }
    
+     /**********************************/
+     /* Navigation management & events */
+	/**********************************/
 
      // Initialization method for configuring event listeners
      initializeEventListeners() {
