@@ -1,3 +1,4 @@
+import { filterRecipes } from "../utils/filterRecipes.js";
 import { TagManager } from "./TagManager.js";
 
 export class DropdownManager {
@@ -11,10 +12,13 @@ export class DropdownManager {
 		this.id = id;
 		this.dataArray = dataArray;
 		this.dataKey = dataKey;
+
 		this.uniqueItems = new Set();
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
 
+		this.allTag = document.querySelectorAll(".tag");
+		
 		this.dropdown = document.getElementById(`${this.id}`); // The dropdown
 		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
 		this.combobox = document.querySelector(`#${this.id} .option-list`); // The combobox node
@@ -25,25 +29,22 @@ export class DropdownManager {
 	}
 
 	initialize() {
-		this.collectUniqueItems(this.dataArray);
-		this.convertItemsToArray();
-		this.capitalizeItems();
-		this.renderDropdownItems(this.capitalizedItemsArray);
+		this.collectUniqueItems();
 		this.initializeEventListeners();
-		this.listElementAddClass();
 	}
 
-	/***********************************/
-    /* Create the list of the elements */
-	/***********************************/
 
+	/***********************************/
+	/* Create the list of the elements */
+	/***********************************/
 
 	// Browse the recipe table to collect unique items
-	collectUniqueItems(data) {
-		debugger
-		console.log(data);
+	collectUniqueItems(newRecipes) {
+		
+		const recipes = newRecipes || this.dataArray;
+		this.uniqueItems = new Set();
 
-		data.forEach(item => {
+		recipes.forEach(item => {
 			
 			if (item?.[this.dataKey]) {
 				switch (typeof item[this.dataKey]) {
@@ -67,13 +68,13 @@ export class DropdownManager {
 				} 
 			}  
 		});
-
-
+		this.convertItemsToArray();
 	}
 
 	// Create an array of unique elements
 	convertItemsToArray() {
 		this.itemsArray = Array.from(this.uniqueItems);
+		this.capitalizeItems();
 	}
 
 	// Re-capitalise the first letter of the first word
@@ -85,14 +86,15 @@ export class DropdownManager {
 		this.renderDropdownItems(this.capitalizedItemsArray);
 	}
 
+
 	/******************/
-    /* Create the DOM */
+	/* Create the DOM */
 	/******************/
 
 	renderDropdownItems(options) {
 
+		console.log("création");
 		this.dropdownElement.innerHTML = "";
-		const tagManagerInstance = new TagManager();
 
 		options.forEach(item => {
 			const element = document.createElement("li");
@@ -101,30 +103,33 @@ export class DropdownManager {
 			element.textContent = `${item}`;
 
 			this.dropdownElement.appendChild(element);
-
-			// Adds an event to create a new tag when an element is clicked
-			element.addEventListener("click", () =>	{
-				tagManagerInstance.createTag(element.textContent);
-				this.listElementAddClass(element);
-			});
-		});
+		});		
 	}
+	
+	// Add a class to the li item if the tag exist
+	addClassToTheListElement(element) {
 
-	// Add a class to the list item if the tag is created
-	listElementAddClass(element) {
-		
-		if(document.querySelectorAll(".tag")) {
-			const allTag = document.querySelectorAll(".tag p");
-			allTag.forEach(tag => {
-				
-				if (element.textContent === tag.textContent) {
-					element.classList.add("tagged");
-				} else {
-					element.classList.remove("tagged");
+		console.log(this.allTag);
+		console.log(element);
+
+		if (element) {
+			
+			this.allTag.forEach(tag => {
+
+				if(tag) {
+
+					console.log(tag.querySelector("p").textContent);
+					console.log(element.textContent);
+
+					if (tag.querySelector("p").textContent === element.textContent) {
+
+						element.classList.add("tagged");
+					}
 				}
 			});
 		}
 	}
+
 
 	/***************************/
 	/* Manage filter functions */
@@ -137,7 +142,7 @@ export class DropdownManager {
 		let count = 0;
 
 		if (filter.length > 0) {
-			const regex = new RegExp(filter, 'gi');
+			const regex = new RegExp(filter, "gi");
 			this.capitalizedItemsArray.forEach(item => {
 				if (regex.test(item)) {
 					// Add the element to filteredOptions
@@ -154,20 +159,12 @@ export class DropdownManager {
 		}
 	}
 
-	filterRecipiesWithTag() {
-
-	}
-
-	// Il reste :
-	// à actualiser les champs de recherche avancée lorsque les recettes sont triés
-	// Trier les recettes lorsque qu'un tag est séléctionné
-
 
 	/**********************************/
-    /* Navigation management & events */
+	/* Navigation management & events */
 	/**********************************/
 
-    // Functions for unfolding or folding the drop-down list
+	// Functions for unfolding or folding the drop-down list
 	dropdownOpen() {
 		this.dropdownBtn.setAttribute("aria-expanded", "true");
 		this.combobox.style.maxHeight = "280px";
@@ -181,15 +178,15 @@ export class DropdownManager {
 		this.dropdownBtn.querySelector(".arrow-icon").setAttribute("src", "assets/icones/arrow-down.svg");
 	}
 
-    toggleDropdown() {
-	const isExpanded = this.dropdownBtn.getAttribute("aria-expanded") === "true";
+	toggleDropdown() {
+		const isExpanded = this.dropdownBtn.getAttribute("aria-expanded") === "true";
 
 		if (!isExpanded) {
 			this.dropdownOpen();
 		} else {
 			this.dropdownClose();
 		}
-    }
+	}
 
 	// Initialization method for configuring event listeners
 	initializeEventListeners() {
@@ -197,7 +194,7 @@ export class DropdownManager {
 		/* For open/close dropdown */
 
 		// If the screen is not touch-sensitive
-		if (!window.hasOwnProperty('ontouchstart')) {
+		if (!window.hasOwnProperty("ontouchstart")) {
 
 			// Setting up hover events
 			this.dropdown.addEventListener("mouseover", this.dropdownOpen.bind(this));
@@ -234,6 +231,31 @@ export class DropdownManager {
 			if (event.key === "Backspace" || event.key === "Delete") {
 				this.comboboxAutocomplete();
 			}
+		});
+
+		/* For the li element */
+		// Adds an event to create a new tag when an element is clicked
+
+		const elementArray = this.dropdownElement.querySelectorAll("li");
+		
+		elementArray.forEach(element => {
+		
+			element.addEventListener("click", () =>	{
+				
+				// Trier recettes
+				filterRecipes(element.textContent);
+				
+				// Crée le tag
+				const tagManagerInstance = new TagManager();
+				tagManagerInstance.createTag(element.textContent);
+
+				// Element commun au tag en jaune
+				this.addClassToTheListElement(element);
+				console.log(element);
+
+				// Si element en jaune, empêcher nouveau clic pour trier recette
+				// ...
+			});
 		});
 	}
 }
