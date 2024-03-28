@@ -16,9 +16,7 @@ export class DropdownManager {
 		this.uniqueItems = new Set();
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
-
-		this.allTag = document.querySelectorAll(".tag");
-		
+	
 		this.dropdown = document.getElementById(`${this.id}`); // The dropdown
 		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
 		this.combobox = document.querySelector(`#${this.id} .option-list`); // The combobox node
@@ -93,7 +91,6 @@ export class DropdownManager {
 
 	renderDropdownItems(options) {
 
-		console.log("création");
 		this.dropdownElement.innerHTML = "";
 
 		options.forEach(item => {
@@ -103,33 +100,28 @@ export class DropdownManager {
 			element.textContent = `${item}`;
 
 			this.dropdownElement.appendChild(element);
+
+			// Comparison & add a class on the element if there a selected tag
+			this.allTag = document.querySelectorAll(".tag");
+			this.allTag.forEach(tag => {
+				if (tag.querySelector("p").textContent === item) {
+					element.classList.add("tagged");
+				}
+			});
+
+			// If an element has the "tagged" class, prevent the event
+			if (!element.classList.contains("tagged")) {
+				element.addEventListener("click", () =>	{
+
+					// Filter recipes
+					filterRecipes(element.textContent);			
+
+					this.renderDropdownItems(this.capitalizedItemsArray);
+				});
+			}
 		});		
 	}
 	
-	// Add a class to the li item if the tag exist
-	addClassToTheListElement(element) {
-
-		console.log(this.allTag);
-		console.log(element);
-
-		if (element) {
-			
-			this.allTag.forEach(tag => {
-
-				if(tag) {
-
-					console.log(tag.querySelector("p").textContent);
-					console.log(element.textContent);
-
-					if (tag.querySelector("p").textContent === element.textContent) {
-
-						element.classList.add("tagged");
-					}
-				}
-			});
-		}
-	}
-
 
 	/***************************/
 	/* Manage filter functions */
@@ -231,31 +223,6 @@ export class DropdownManager {
 			if (event.key === "Backspace" || event.key === "Delete") {
 				this.comboboxAutocomplete();
 			}
-		});
-
-		/* For the li element */
-		// Adds an event to create a new tag when an element is clicked
-
-		const elementArray = this.dropdownElement.querySelectorAll("li");
-		
-		elementArray.forEach(element => {
-		
-			element.addEventListener("click", () =>	{
-				
-				// Trier recettes
-				filterRecipes(element.textContent);
-				
-				// Crée le tag
-				const tagManagerInstance = new TagManager();
-				tagManagerInstance.createTag(element.textContent);
-
-				// Element commun au tag en jaune
-				this.addClassToTheListElement(element);
-				console.log(element);
-
-				// Si element en jaune, empêcher nouveau clic pour trier recette
-				// ...
-			});
 		});
 	}
 }

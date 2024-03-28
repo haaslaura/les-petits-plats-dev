@@ -6,6 +6,7 @@ This code concerns the recipes sorting algorithm
 
 import recipes from "../../data/recipes.js";
 import { DropdownManager } from "../classes/DropdownManager.js";
+import { TagManager } from "../classes/TagManager.js";
 import { displayErrorMessage } from "./displayErrorMessage.js";
 import { displayRecipes } from "./displayRecipes.js";
 import { displayRecipesNumber } from "./displayRecipesNumber.js";
@@ -80,11 +81,15 @@ export function filterRecipes(searchValue) {
 		}
         
 		if (count > 0) {
+			// Filter recipes... 
 			displayRecipes(filteredRecipes);
+			// ... and update the number of recipes
 			displayRecipesNumber(filteredRecipes);
+			// ... and add a tag with the content of the search
+			const tagManagerInstance = new TagManager();
+			tagManagerInstance.createTag(searchValue);
             
-			// Using the DropDownManager method
-			// To display the new filtered array
+			// ...and using the DropDownManager method to display the new filtered array
 			ingredientsDropdown.collectUniqueItems(filteredRecipes);
 			ustensilsDropdown.collectUniqueItems(filteredRecipes);
 			appliancesDropdown.collectUniqueItems(filteredRecipes);

@@ -1,7 +1,8 @@
 export class TagManager {
 	
 	constructor() {
-		
+		this.tagList = [];
+		console.log(this.tagList);
 	}
 	
 	/**
@@ -33,7 +34,6 @@ export class TagManager {
 			
 			// Append the tag to the display area
 			document.querySelector(".display-tag").appendChild(tag);
-
 		}
 	}
 	
