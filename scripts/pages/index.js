@@ -20,6 +20,5 @@ function initPage() {
 
 initPage();
 
-
 // Initialise classes
 const searchBar = new SearchBar(recipes);

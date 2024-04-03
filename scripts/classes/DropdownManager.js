@@ -17,6 +17,15 @@ export class DropdownManager {
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
 	
+		// TEST
+		this.filterOptions = {
+			searchText: "", // Texte de recherche initial vide
+			selectedIngredients: [],
+			selectedAppliances: [],
+			selectedUstensils: []
+		};
+		// FIN TEST
+
 		this.dropdown = document.getElementById(`${this.id}`); // The dropdown
 		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
 		this.combobox = document.querySelector(`#${this.id} .option-list`); // The combobox node
@@ -111,17 +120,49 @@ export class DropdownManager {
 
 			// If an element has the "tagged" class, prevent the event
 			if (!element.classList.contains("tagged")) {
-				element.addEventListener("click", () =>	{
+
+	
+				element.addEventListener("click", event =>	{
+
+					this.chooseOptions(event);
 
 					// Filter recipes
-					filterRecipes(element.textContent);			
+					//filterRecipes(element.textContent);
+					//filterRecipes(this.filterOptions);
 
 					this.renderDropdownItems(this.capitalizedItemsArray);
 				});
 			}
 		});		
 	}
+
+	// TEST FONCTION
+	chooseOptions(event) {
+
+		const selectedItems = event.target.textContent;
+		console.log(selectedItems);
+		console.log(event.target.textContent);
+
+		// Mettre à jour filterOptions en fonction du type de données (ingrédients, appareils, ustensiles)
+		switch (this.dataKey) {
+			case "ingredients":
+				this.filterOptions.selectedIngredients.push(selectedItems);
+				break;
+			case "appliance":
+				this.filterOptions.selectedAppliances.push(selectedItems);
+				break;
+			case "ustensils":
+				this.filterOptions.selectedUstensils.push(selectedItems);
+				break;
+			default:
+				console.error("Type de données non pris en charge");
+				return;
+		}
 	
+
+		filterRecipes(this.filterOptions);
+	}
+
 
 	/***************************/
 	/* Manage filter functions */

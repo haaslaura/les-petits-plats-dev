@@ -15,6 +15,19 @@ export class SearchBar {
 		this.searchButton = document.querySelector(".loop-icon");
 		this.errorMessage = null;
 
+		// TEST
+		// Initialisation de l'objet filterOptions
+
+		this.filterOptions = {
+			searchText: "", // Texte de recherche initial vide
+			selectedIngredients: [],
+			selectedAppliances: [],
+			selectedUstensils: []
+		};
+
+		// FIN TEST
+		
+
 		this.initialize();	
 	}
 
@@ -42,7 +55,13 @@ export class SearchBar {
 			// If the content of the input is valid
 			// any error messages are removed and the recipes are filtered
 		} else {
-			filterRecipes(this.searchBar.value);
+
+			// TEST
+			this.filterOptions.searchText = this.searchBar.value;
+			console.log(this.filterOptions);
+			filterRecipes(this.filterOptions);
+			// FIN TEST
+			// filterRecipes(this.searchBar.value);
 		}
 	}
 
@@ -84,5 +103,6 @@ export class SearchBar {
 				displayRecipes(this.recipes);
 			}
 		});
+		
 	}
 }
