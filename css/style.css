@@ -119,7 +119,7 @@
   border: none;
   cursor: pointer;
 }
-.filter .dropdown-btn-filter:focus, .filter .dropdown-btn-filter:hover {
+.filter .dropdown-btn-filter:focus {
   outline: 3px solid rgb(255, 209, 91);
   border-radius: 11px;
   z-index: 3001;
@@ -172,6 +172,7 @@
 .filter .option-list ul li {
   white-space: normal;
   line-height: 1.3rem;
+  cursor: pointer;
 }
 .filter .option-list ul li:hover, .filter .option-list ul li:focus, .filter .option-list ul li:focus-visible {
   background-color: rgb(255, 209, 91);
@@ -180,6 +181,7 @@
 }
 .filter .option-list ul .tagged {
   background-color: rgb(255, 209, 91);
+  cursor: default;
 }
 
 .searchform {

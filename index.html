@@ -14,8 +14,7 @@
     <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Script -->
     <script type="module" src="scripts/pages/index.js"></script>
-    <script type="module" src="scripts/components/createTag.js"></script>
-    <script type="module" src="scripts/classes/TagManager.js"></script>
+
 </head>
 <body class="bg-light">
     
@@ -53,7 +52,7 @@
         <!-- All filters options -->
         <section class="container pt-5" aria-label="Choisir des options pour filter les recettes">
 
-            <!-- Dropdow +  Nb receipies -->
+            <!-- Dropdow + Nb receipies -->
             <div class="filter-section d-flex flex-wrap-reverse flex-md-nowrap justify-content-between align-items-center">
 
                 <!-- Dropdown -->
@@ -68,7 +67,8 @@
                         id="dropdownMenuButton-ingredients"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        tabindex="0">
                         <span>Ingrédients</span>
                         <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                         </button>
@@ -105,7 +105,8 @@
                         id="dropdownMenuButton-appliances"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        tabindex="0">
                         <span>Appareils</span>
                         <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                         </button>
@@ -142,7 +143,8 @@
                         id="dropdownMenuButton-utils"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        tabindex="0">
                         <span>Ustensiles</span>
                         <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                         </button>

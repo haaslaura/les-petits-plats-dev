@@ -14,7 +14,7 @@
         border: none;
         cursor: pointer;
 
-        &:focus, &:hover {
+        &:focus/*, &:hover*/ {
             outline: 3px solid $color-main;
             border-radius: 11px;
             z-index: 3001   ;
@@ -75,16 +75,20 @@
             li {
                 white-space: normal;
                 line-height: 1.3rem;
+                cursor: pointer;
 
                 &:hover, &:focus, &:focus-visible {
                     background-color: $color-main;
                     border: none;
                     outline: none;
                 }
-                .tagged {
-                    background-color: $color-main;
-                }
             }
+
+            .tagged {
+                background-color: $color-main;
+                cursor: default;
+            }
+
         }
     }
 }

@@ -6,6 +6,12 @@ This code concerns the message in case of error
 
 
 export function displayErrorMessage(search) {
+
+	// Empty the section of recipes
+	const cardSection = document.querySelector(".recipes-list");
+	cardSection.innerHTML = "";
+
+	// Display the error message
 	const mainContainer = document.querySelector("main");
 
 	const errorMessage = document.createElement("div");

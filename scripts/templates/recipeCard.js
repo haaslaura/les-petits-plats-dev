@@ -88,26 +88,3 @@ export function recipeCard(recipesData) {
 
 	return { id, servings, ingredients, appliance, ustensils, recipeCardTemplate };
 }
-/*
-<div class="card recipe-card mb-4">
-    <div class="recipe-card__img">
-        <img class="card-img-top" src="assets/images/hero-header.webp" alt="">
-        <p>10min</p>
-    </div>
-    <div class="card-body">
-        <h2 class="card-title">Limonade de coco</h2>
-        <h3 class="card-subtitle">Recette</h3>
-        <p class="card-text">
-            Mettre les glaçons à votre goût dans le blender, ajouter le lait, la crème de coco, le jus de 2 citrons et le sucre. Mixer jusqu'à avoir la consistence désirée.
-        </p>
-        <h3 class="card-subtitle">Ingrédients</h3>
-        <div class="ingredients-list d-flex flex-row flex-wrap align-content-around">
-            <p>Lait de coco<br><span>400ml</span></p>
-            <p>Crème de coco<br><span>4 cuillères</span></p>
-            <p>Glaçons<br><span>2</span></p>
-            <p>Jus de citrons<br><span>2</span></p>
-            <p>Sucre<br><span>20g</span></p>
-        </div>
-    </div>
-</div>
-*/

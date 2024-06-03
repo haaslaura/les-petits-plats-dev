@@ -8,12 +8,13 @@ import { recipeCard } from "../templates/recipeCard.js";
 
 export function displayRecipes(dataArrow) {
 
-	// Section liste des recettes
-	const cardSection = document.querySelector(".recipes-list"); /* section bien obtenue */
+	// Recipe list section
+	const cardSection = document.querySelector(".recipes-list");
+	cardSection.innerHTML = "";
 
 	dataArrow.forEach(recipe => {
 
-		// Usage du template
+		// Using the template
 		const cardTemplate = recipeCard(recipe);
 		const modelRecipeCard = cardTemplate.recipeCardTemplate();
 

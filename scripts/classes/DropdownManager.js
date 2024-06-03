@@ -1,5 +1,5 @@
+import { chooseOptions } from "../utils/chooseOptions.js";
 import { filterRecipes } from "../utils/filterRecipes.js";
-import { TagManager } from "./TagManager.js";
 
 export class DropdownManager {
 	/**
@@ -7,41 +7,31 @@ export class DropdownManager {
      * @param {HTMLBodyElement} id
      * @param {data} dataArray
      * @param {string} dataKey 
+     * @param {object} filterOptions 
      */
-	constructor(id, dataArray, dataKey) {
+	constructor(id, dataArray, dataKey, filterOptions) {
 		this.id = id;
 		this.dataArray = dataArray;
 		this.dataKey = dataKey;
+        this.filterOptions = filterOptions;
 
 		this.uniqueItems = new Set();
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
 	
-		// TEST
-		this.filterOptions = {
-			searchText: "", // Texte de recherche initial vide
-			selectedIngredients: [],
-			selectedAppliances: [],
-			selectedUstensils: []
-		};
-		// FIN TEST
-
 		this.dropdown = document.getElementById(`${this.id}`); // The dropdown
 		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
 		this.combobox = document.querySelector(`#${this.id} .option-list`); // The combobox node
 		this.dropdownInput = document.querySelector(`#${this.id} .form-control`); // The Input
 		this.dropdownElement = document.querySelector(`#${this.id} ul`); // The elements list		
 
-		this.initialize();
-	}
-
-	initialize() {
 		this.collectUniqueItems();
-		this.initializeEventListeners();
+        this.initializeEventListeners();
+		this.comboboxAutocomplete();
+
 	}
 
-
-	/***********************************/
+    /***********************************/
 	/* Create the list of the elements */
 	/***********************************/
 
@@ -93,8 +83,7 @@ export class DropdownManager {
 		this.renderDropdownItems(this.capitalizedItemsArray);
 	}
 
-
-	/******************/
+    /******************/
 	/* Create the DOM */
 	/******************/
 
@@ -109,60 +98,9 @@ export class DropdownManager {
 			element.textContent = `${item}`;
 
 			this.dropdownElement.appendChild(element);
-
-			// Comparison & add a class on the element if there a selected tag
-			this.allTag = document.querySelectorAll(".tag");
-			this.allTag.forEach(tag => {
-				if (tag.querySelector("p").textContent === item) {
-					element.classList.add("tagged");
-				}
-			});
-
-			// If an element has the "tagged" class, prevent the event
-			if (!element.classList.contains("tagged")) {
-
-	
-				element.addEventListener("click", event =>	{
-
-					this.chooseOptions(event);
-
-					// Filter recipes
-					//filterRecipes(element.textContent);
-					//filterRecipes(this.filterOptions);
-
-					this.renderDropdownItems(this.capitalizedItemsArray);
-				});
-			}
 		});		
 	}
-
-	// TEST FONCTION
-	chooseOptions(event) {
-
-		const selectedItems = event.target.textContent;
-		console.log(selectedItems);
-		console.log(event.target.textContent);
-
-		// Mettre à jour filterOptions en fonction du type de données (ingrédients, appareils, ustensiles)
-		switch (this.dataKey) {
-			case "ingredients":
-				this.filterOptions.selectedIngredients.push(selectedItems);
-				break;
-			case "appliance":
-				this.filterOptions.selectedAppliances.push(selectedItems);
-				break;
-			case "ustensils":
-				this.filterOptions.selectedUstensils.push(selectedItems);
-				break;
-			default:
-				console.error("Type de données non pris en charge");
-				return;
-		}
-	
-
-		filterRecipes(this.filterOptions);
-	}
-
+		
 
 	/***************************/
 	/* Manage filter functions */
@@ -189,11 +127,13 @@ export class DropdownManager {
 			} else {
 				this.dropdownElement.innerHTML = "Aucun élément ne correspond";
 			}
+		} else {
+			this.renderDropdownItems(this.capitalizedItemsArray);
 		}
 	}
 
 
-	/**********************************/
+    /**********************************/
 	/* Navigation management & events */
 	/**********************************/
 
@@ -223,6 +163,15 @@ export class DropdownManager {
 
 	// Initialization method for configuring event listeners
 	initializeEventListeners() {
+		this.dropdown.addEventListener("new-filter", (e) => {
+			/**
+			 * Grace au tableau récupéré dans "detail" reconstruire le dropdown
+			 */
+			
+			console.log(e.detail); // = filteredRecipes
+			this.collectUniqueItems(e.detail);
+			// chooseOptions(this.dataArray, this.filterOptions);
+		})
 		
 		/* For open/close dropdown */
 
@@ -236,8 +185,6 @@ export class DropdownManager {
 			// Setting up keyboard Enter button events
 			this.dropdownBtn.addEventListener("keydown", (event) => {
 				if (event.key === "Enter") {
-
-					console.log("Avec tab + entrée :");
 					this.toggleDropdown();
 				}
 				if (event.key === "Escape") {
