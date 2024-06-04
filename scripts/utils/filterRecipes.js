@@ -25,42 +25,23 @@ import { displayRecipesNumber } from "./displayRecipesNumber.js";
 */
 
 export function filterRecipes(recipes, filterOptions) {
+
+	console.log("les recettes sont filtrées");
     
     const { searchbarText, filters } = filterOptions;
     const { selectedIngredients, selectedAppliances, selectedUstensils } = filters;
 
-	console.log(searchbarText);
-	console.log(selectedIngredients);
-	console.log(selectedAppliances);
-	console.log(selectedUstensils);
-
-	// S'il y avait un message d'erreur, le retirer
+	// If there was an error message, remove it
 	const errorMessage = document.querySelector(".error-message");
 	if (errorMessage) {
 		errorMessage.remove();
 	}
 
     // If the entire filterOptions is empty, redisplay the originals recipes
-    if (searchbarText === '' && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0) {
+    if (searchbarText === "" && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0) {
 
-		console.log("tous les filtres sont vides");
         displayRecipes(recipes);
         displayRecipesNumber(recipes);
-
-        return;
-    }
-
-    // If the search is less than 3 characters long, display error message
-    if (searchbarText.length > 0 && searchbarText.length < 3) {
-
-		console.log("texte inférieur à 3 lettres, afficher une erreur");
-
-        const errorMessage = document.querySelector(".error-message");
-        if (errorMessage) {
-            errorMessage.remove();
-        }
-        displayErrorMessage(searchbarText);
-		displayRecipesNumber([]); // display "0 recettes"
         return;
     }
 
@@ -69,61 +50,83 @@ export function filterRecipes(recipes, filterOptions) {
     
     // Browse the list of recipes
     for (let i = 0; i < recipes.length; i++) {
+
         const recipe = recipes[i];
-        let match = false;
+		let matchSearchBar = true;
+		let matchIngredients = true;
+		let matchAppliances = true;
+		let matchUstensils = true;
 
         // Check if the recipe name, description, or any ingredient matches the search text
-        if (regex.test(recipe.name) || regex.test(recipe.description)) {
+		if (searchbarText !== "") {
+			matchSearchBar = false;
+			
+			if (regex.test(recipe.name) || regex.test(recipe.description)) {
+				matchSearchBar = true;
 
-			// console.log(regex.test(recipe.name));
-			// console.log(regex.test(recipe.description));
+        	} else {
+				for (let ing = 0; ing < recipe.ingredients.length; ing++) {
 
-            match = true;
-        } else {
-            for (let ing = 0; ing < recipe.ingredients.length; ing++) {
-                if (regex.test(recipe.ingredients[ing].ingredient)) {
-                    match = true;
-                    break;
-                }
-            }
-        }
+					if (regex.test(recipe.ingredients[ing].ingredient)) {
+						matchSearchBar = true;
+						break;
+					}
+				}
+        	}
+		}
+        
 
-        // Check if the recipe matches the selected appliances
+        // Check if the recipe matches the selected appliance
         if (selectedAppliances.length > 0) {
-            if (!selectedAppliances.includes(recipe.appliance.toLowerCase())) {
-                match = false;
+			matchAppliances = false;
+
+            if (recipe.appliance.toLowerCase().includes(selectedAppliances[0].toLowerCase())) {
+                matchAppliances = true;
             }
         }
 
         // Check if the recipe matches the selected ingredients
         if (selectedIngredients.length > 0) {
+
+			matchIngredients = true;
+
             for (let j = 0; j < selectedIngredients.length; j++) {
                 let found = false;
-                for (let ing = 0; ing < recipe.ingredients.length; ing++) {
+                
+				for (let ing = 0; ing < recipe.ingredients.length; ing++) {
                     if (recipe.ingredients[ing].ingredient.toLowerCase().includes(selectedIngredients[j].toLowerCase())) {
                         found = true;
                         break;
                     }
                 }
                 if (!found) {
-                    match = false;
+                    matchIngredients = false;
                     break;
                 }
             }
         }
 
+
         // Check if the recipe matches the selected ustensils
         if (selectedUstensils.length > 0) {
+			matchUstensils = false;
+
+			const recipeUstensilsLowerCase = [];
+    		for (let i = 0; i < recipe.ustensils.length; i++) {
+				recipeUstensilsLowerCase.push(recipe.ustensils[i].toLowerCase());
+			}
+
             for (let j = 0; j < selectedUstensils.length; j++) {
-                if (!recipe.ustensils.includes(selectedUstensils[j].toLowerCase())) {
-                    match = false;
+
+                if (recipeUstensilsLowerCase.includes(selectedUstensils[j].toLowerCase())) {
+                    matchUstensils = true;
                     break;
                 }
             }
         }
 
         // If the recipe matches all the criteria, add it to the filtered recipes list
-        if (match) {
+        if (matchSearchBar && matchIngredients && matchAppliances && matchUstensils) {
             filteredRecipes.push(recipe);
         }
     }
@@ -131,24 +134,26 @@ export function filterRecipes(recipes, filterOptions) {
     // If at least 1 recipe is available, display the recipes
     if (filteredRecipes.length > 0) {
 
+		console.log(filteredRecipes);
+
 		/**
 		* Faire avec les autres dropdowns
 		*/
 		const newFilterRecipes =  new CustomEvent("new-filter", {
-			detail: filteredRecipes
+			detail: filteredRecipes // contient les recettes filtrées
 		})
 		const ingredientsDD = document.getElementById("dropdown-ingredients");
 		const appliancesDD = document.getElementById("dropdown-appliances");
 		const ustensilsDD = document.getElementById("dropdown-utils");
+		// les recettes sont renvoyées via l'évènement pour afficher de nouvelles listes
 		ingredientsDD.dispatchEvent(newFilterRecipes);
 		appliancesDD.dispatchEvent(newFilterRecipes);
 		ustensilsDD.dispatchEvent(newFilterRecipes);
 
-		console.log(newFilterRecipes);
 
         displayRecipes(filteredRecipes);
         displayRecipesNumber(filteredRecipes);
-		chooseOptions(filteredRecipes, filterOptions);
+		//chooseOptions(filteredRecipes, filterOptions);
 
 	// If not, display the error message
     } else {
@@ -160,127 +165,3 @@ export function filterRecipes(recipes, filterOptions) {
 		displayRecipesNumber([]); // display "0 recettes"
     }
 }
-
-
-
-/*
-export function filterRecipes(recipes, filterOptions) {
-	console.time('filter')
-	
-	const searchFilter = filterOptions.searchbarText;
-	const ingredFilter = filterOptions.filters.selectedIngredients;
-	const applFilter = filterOptions.filters.selectedAppliances;
-	const ustFilter = filterOptions.filters.selectedUstensils;
-	
-	console.log(searchFilter);
-	console.log(ingredFilter);
-	console.log(applFilter);
-	console.log(ustFilter);
-
-	// If the entire filterOptions is empty, redisplay the recipes
-	if (searchFilter === '' && ingredFilter.length === 0 && applFilter.length === 0 && ustFilter.length === 0) {
-
-		displayRecipes(recipes);
-		displayRecipesNumber(recipes);
-		
-	// If the search is less than 3 characters long, display error message
-	} else if (searchFilter.length < 3) {
-
-		console.log(searchFilter.length);
-				
-		const errorMessage = document.querySelector(".error-message");
-		if(errorMessage) {
-			errorMessage.remove();
-		}
-		displayErrorMessage(searchFilter);
-		
-	} else {
-		// Sinon filtrer les recettes en fonction des critères choisis par l'utilisateur
-		const regex = new RegExp(searchFilter, "gi"); // g = global search, i = insensitive to breakag
-		
-		const filteredRecipes = [];
-		let count = 0;
-		
-		let g = 0;
-		// Browse the list of recipes
-		for (let i = 0; i < recipes.length; i++) {
-			if (regex.test(recipes[i].name)) {
-				count = filteredRecipes.push(recipes[i]);
-				continue;
-			}
-			if (regex.test(recipes[i].description)) {
-				count = filteredRecipes.push(recipes[i]);
-				continue;
-			}
-
-			// ET
-
-			// Browse the appliance
-			for (let j = 0; j < applFilter.length; j++) {
-			
-				if (regex.test(recipes[i].appliance) || recipes[i].appliance.includes(applFilter[j])) {
-					console.log(recipes[i].appliance.includes(applFilter[j]));
-					count = filteredRecipes.push(recipes[i]);
-					continue;
-				}			
-			}
-
-			
-			// Browse the ingredients list
-			const ingredientsList = recipes[i].ingredients;
-
-			for (let j = 0; j < ingredFilter.length; j++) {
-
-				for (g = 0; g < ingredientsList.length; g++){
-					
-					if (regex.test(ingredientsList[g].ingredient) || ingredientsList[g].ingredient.includes(ingredFilter[j])) { 
-						count = filteredRecipes.push(recipes[i]);
-						continue;
-					}
-				}
-			}
-			
-			// Browse the ustensils list
-			const ustensilsList = recipes[i].ustensils;
-			for (g = 0; g < ustensilsList.length; g++){
-				
-				if (regex.test(ustensilsList[g]) /* || ou liste ustentils*//*) {
-					count = filteredRecipes.push(recipes[i]);
-					continue;
-				}
-			}
-			/**
-			* Dans le for : 
-			* filtrer les recettes en fonction des dropdowns déjà sélectionnés
-			*/
-			/*
-		}
-
-		// If at least 1 recipe is available, display the recipes
-		if (count > 0) {
-			/**
-			 * Faire avec les autres dropdowns
-			 */
-			/*
-			const newFilterRecipes =  new CustomEvent('new-filter', {
-				detail: filteredRecipes
-			})
-			const ingredienDD = document.getElementById('dropdown-ingredients')
-			ingredienDD.dispatchEvent(newFilterRecipes);
-
-
-			displayRecipes(filteredRecipes);
-			displayRecipesNumber(filteredRecipes);
-			
-		// If not, display the error message
-		} else {
-			const errorMessage = document.querySelector(".error-message");
-			if(errorMessage) {
-				errorMessage.remove();
-			}
-			displayErrorMessage(searchFilter);
-		}
-	}
-	
-	console.timeEnd('filter')
-}*/

@@ -25,7 +25,7 @@ export class DropdownManager {
 		this.dropdownInput = document.querySelector(`#${this.id} .form-control`); // The Input
 		this.dropdownElement = document.querySelector(`#${this.id} ul`); // The elements list		
 
-		this.collectUniqueItems();
+		//this.collectUniqueItems();
         this.initializeEventListeners();
 		this.comboboxAutocomplete();
 
@@ -87,18 +87,25 @@ export class DropdownManager {
 	/* Create the DOM */
 	/******************/
 
-	renderDropdownItems(options) {
+	renderDropdownItems(array) {
+		console.log("début fonction création DOM dropdown");
 
 		this.dropdownElement.innerHTML = "";
 
-		options.forEach(item => {
+		array.forEach(item => {
 			const element = document.createElement("li");
 			element.setAttribute("role", "option");
 			element.classList.add("dropdown-item", "d-flex", "flex-wrap", "align-items-center", "py-2");
 			element.textContent = `${item}`;
 
 			this.dropdownElement.appendChild(element);
-		});		
+			
+			
+		});
+
+		console.log("lance chooseOptions après créa DOM dropdown");
+		chooseOptions(this.dataArray, this.filterOptions);
+		
 	}
 		
 
@@ -112,9 +119,16 @@ export class DropdownManager {
 		const filteredOptions = [];		
 		let count = 0;
 
+		// Si la valeur du bouton est supérieur à 0
 		if (filter.length > 0) {
+			
+			// on crée une regex pour compare le contenu
 			const regex = new RegExp(filter, "gi");
+
+			// On parcour le tableau des éléments avec majuscule
 			this.capitalizedItemsArray.forEach(item => {
+
+				// Si la regex est positive au test 
 				if (regex.test(item)) {
 					// Add the element to filteredOptions
 					count = filteredOptions.push(item);
@@ -124,11 +138,14 @@ export class DropdownManager {
 			// Update the options in the drop-down list according to the filtered options
 			if (count > 0) {
 				this.renderDropdownItems(filteredOptions);
+				// this.collectUniqueItems();
 			} else {
 				this.dropdownElement.innerHTML = "Aucun élément ne correspond";
 			}
+		// Sinon on montre juste la liste initiale
 		} else {
-			this.renderDropdownItems(this.capitalizedItemsArray);
+			// this.renderDropdownItems(this.capitalizedItemsArray); // Crée le DOM
+			this.collectUniqueItems(this.dataArray);
 		}
 	}
 
@@ -164,15 +181,18 @@ export class DropdownManager {
 	// Initialization method for configuring event listeners
 	initializeEventListeners() {
 		this.dropdown.addEventListener("new-filter", (e) => {
-			/**
-			 * Grace au tableau récupéré dans "detail" reconstruire le dropdown
-			 */
-			
-			console.log(e.detail); // = filteredRecipes
+
+			// e.detail contient un tableau de recettes filtrés
+			// console.log(e.detail);
+
+			// ce tableau sert à afficher de nouvelles listes dans les dropdowns
+			console.log("on rentre dans l'écoute de l'event new-filter");
 			this.collectUniqueItems(e.detail);
-			// chooseOptions(this.dataArray, this.filterOptions);
+
 		})
-		
+		// ERREUR CONSOLE
+		// >> on voit que les recettes sont triées une 2e fois sans raison
+
 		/* For open/close dropdown */
 
 		// If the screen is not touch-sensitive

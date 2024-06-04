@@ -27,13 +27,7 @@ export class SearchBar {
 		this.initializeEventListeners();
 	}
 
-	checkInputValueValidity(event) {
-		console.log(event);
-		console.log(this.searchBar.value); // coco / immédiat
-		console.log(this.searchBar.value.length); // coco / immédiat
-		console.log(this.filterOptions.searchbarText); // rien / décalé
-		
-
+	checkInputValueValidity(event) {		
 		// V2
 
 		// DANS TOUS LES CAS
@@ -63,14 +57,17 @@ export class SearchBar {
 
 			// 	4) Afficher une erreur (searchbar.value n'existe pas)
 			displayErrorMessage(this.searchBar.value);
+			displayRecipesNumber([]);
 
 		// Si toutes les conditions sont remplies
 		} else {
 			this.filterOptions.searchbarText = this.searchBar.value;
 
-			//  3) Ajouter le nouveau tag
+			if (this.searchBar.value.length !== 0) {
+				//  3) Ajouter le nouveau tag
 			this.searchBarTag.createTag(this.filterOptions.searchbarText);
-
+			}
+			
 			// 	4) Ajouter le nouveau contenu au filtre
 			filterRecipes(this.recipes, this.filterOptions);
 		}

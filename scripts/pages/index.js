@@ -8,7 +8,7 @@ This JavaScript code is linked to the index.html page
 import recipes from "../../data/recipes.js";
 import { DropdownManager } from "../classes/DropDownManager.js";
 import { SearchBar } from "../classes/SearchBar.js";
-import { chooseOptions } from "../utils/chooseOptions.js";
+// import { chooseOptions } from "../utils/chooseOptions.js";
 import { displayRecipes } from "../utils/displayRecipes.js";
 import { displayRecipesNumber } from "../utils/displayRecipesNumber.js";
 
@@ -39,4 +39,4 @@ new DropdownManager("dropdown-utils", recipes, "ustensils", filterOptions);
 
 
 // Choose your dropdown filtering options
-chooseOptions(recipes, filterOptions);
+// chooseOptions(recipes, filterOptions);
