@@ -1,5 +1,4 @@
 import { chooseOptions } from "../utils/chooseOptions.js";
-import { filterRecipes } from "../utils/filterRecipes.js";
 
 export class DropdownManager {
 	/**
@@ -25,10 +24,9 @@ export class DropdownManager {
 		this.dropdownInput = document.querySelector(`#${this.id} .form-control`); // The Input
 		this.dropdownElement = document.querySelector(`#${this.id} ul`); // The elements list		
 
-		//this.collectUniqueItems();
+		this.collectUniqueItems();
         this.initializeEventListeners();
-		this.comboboxAutocomplete();
-
+		//this.comboboxAutocomplete();
 	}
 
     /***********************************/
@@ -99,13 +97,10 @@ export class DropdownManager {
 			element.textContent = `${item}`;
 
 			this.dropdownElement.appendChild(element);
-			
-			
 		});
 
 		console.log("lance chooseOptions après créa DOM dropdown");
 		chooseOptions(this.dataArray, this.filterOptions);
-		
 	}
 		
 
@@ -119,16 +114,11 @@ export class DropdownManager {
 		const filteredOptions = [];		
 		let count = 0;
 
-		// Si la valeur du bouton est supérieur à 0
 		if (filter.length > 0) {
 			
-			// on crée une regex pour compare le contenu
 			const regex = new RegExp(filter, "gi");
 
-			// On parcour le tableau des éléments avec majuscule
 			this.capitalizedItemsArray.forEach(item => {
-
-				// Si la regex est positive au test 
 				if (regex.test(item)) {
 					// Add the element to filteredOptions
 					count = filteredOptions.push(item);
@@ -137,15 +127,14 @@ export class DropdownManager {
 	
 			// Update the options in the drop-down list according to the filtered options
 			if (count > 0) {
+				console.log("lance this.renderDropdownItems");
 				this.renderDropdownItems(filteredOptions);
-				// this.collectUniqueItems();
 			} else {
 				this.dropdownElement.innerHTML = "Aucun élément ne correspond";
 			}
-		// Sinon on montre juste la liste initiale
 		} else {
-			// this.renderDropdownItems(this.capitalizedItemsArray); // Crée le DOM
-			this.collectUniqueItems(this.dataArray);
+			console.log("lance this.collectUniqueItems");
+			this.collectUniqueItems(this.dataArray); // Display the initial list of item
 		}
 	}
 
@@ -160,12 +149,18 @@ export class DropdownManager {
 		this.combobox.style.maxHeight = "280px";
 		this.combobox.style.opacity = "1";
 		this.dropdownBtn.querySelector(".arrow-icon").setAttribute("src", "assets/icones/arrow-up.svg");
+	
+		this.combobox.querySelector("button").setAttribute("tabindex", "0");
+		this.dropdownInput.setAttribute("tabindex", "0");
 	}
 	dropdownClose() {
 		this.dropdownBtn.setAttribute("aria-expanded", "false");
 		this.combobox.style.maxHeight = "0";
 		this.combobox.style.opacity = "0";
 		this.dropdownBtn.querySelector(".arrow-icon").setAttribute("src", "assets/icones/arrow-down.svg");
+	
+		this.combobox.querySelector("button").setAttribute("tabindex", "-1");
+		this.dropdownInput.setAttribute("tabindex", "-1");
 	}
 
 	toggleDropdown() {
@@ -182,16 +177,10 @@ export class DropdownManager {
 	initializeEventListeners() {
 		this.dropdown.addEventListener("new-filter", (e) => {
 
-			// e.detail contient un tableau de recettes filtrés
-			// console.log(e.detail);
-
-			// ce tableau sert à afficher de nouvelles listes dans les dropdowns
 			console.log("on rentre dans l'écoute de l'event new-filter");
-			this.collectUniqueItems(e.detail);
+			this.collectUniqueItems(e.detail); // e.detail contains a table of filtered recipes
 
 		})
-		// ERREUR CONSOLE
-		// >> on voit que les recettes sont triées une 2e fois sans raison
 
 		/* For open/close dropdown */
 
