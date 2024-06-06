@@ -4,7 +4,6 @@ This is the algorithm for filtering recipes
 
 **********************************************************************/
 
-import { chooseOptions } from "./chooseOptions.js";
 import { displayErrorMessage } from "./displayErrorMessage.js";
 import { displayRecipes } from "./displayRecipes.js";
 import { displayRecipesNumber } from "./displayRecipesNumber.js";
@@ -26,7 +25,7 @@ import { displayRecipesNumber } from "./displayRecipesNumber.js";
 
 export function filterRecipes(recipes, filterOptions) {
 
-	console.log("les recettes sont filtrées");
+	console.log("Recipes are filtered");
     
     const { searchbarText, filters } = filterOptions;
     const { selectedIngredients, selectedAppliances, selectedUstensils } = filters;
@@ -39,6 +38,19 @@ export function filterRecipes(recipes, filterOptions) {
 
     // If the entire filterOptions is empty, redisplay the originals recipes
     if (searchbarText === "" && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0) {
+
+        // Creation of an event to retrieve the initial recipes in the DropDownManager class
+		const newFilterRecipes =  new CustomEvent("new-filter", {
+			detail: recipes
+		});
+		const ingredientsDD = document.getElementById("dropdown-ingredients");
+		const appliancesDD = document.getElementById("dropdown-appliances");
+		const ustensilsDD = document.getElementById("dropdown-utils");
+		
+        // Recipes are returned via the event to display new lists
+		ingredientsDD.dispatchEvent(newFilterRecipes);
+		appliancesDD.dispatchEvent(newFilterRecipes);
+		ustensilsDD.dispatchEvent(newFilterRecipes);
 
         displayRecipes(recipes);
         displayRecipesNumber(recipes);
@@ -136,24 +148,21 @@ export function filterRecipes(recipes, filterOptions) {
 
 		console.log(filteredRecipes);
 
-		/**
-		* Faire avec les autres dropdowns
-		*/
+		// Creation of an event to retrieve filtered recipes in the DropDownManager class
 		const newFilterRecipes =  new CustomEvent("new-filter", {
-			detail: filteredRecipes // contient les recettes filtrées
-		})
+			detail: filteredRecipes
+		});
 		const ingredientsDD = document.getElementById("dropdown-ingredients");
 		const appliancesDD = document.getElementById("dropdown-appliances");
 		const ustensilsDD = document.getElementById("dropdown-utils");
-		// les recettes sont renvoyées via l'évènement pour afficher de nouvelles listes
+		
+        // Recipes are returned via the event to display new lists
 		ingredientsDD.dispatchEvent(newFilterRecipes);
 		appliancesDD.dispatchEvent(newFilterRecipes);
 		ustensilsDD.dispatchEvent(newFilterRecipes);
 
-
         displayRecipes(filteredRecipes);
         displayRecipesNumber(filteredRecipes);
-		//chooseOptions(filteredRecipes, filterOptions);
 
 	// If not, display the error message
     } else {
