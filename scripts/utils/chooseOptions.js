@@ -1,6 +1,6 @@
 /**********************************************************************
 
-This code allows new tags to be created after selection by the user
+This code is used to fill in the user choice tables when an ingredient, appliance or utensil is clicked.
 
 **********************************************************************/
 
@@ -18,105 +18,136 @@ import { filterRecipes } from "./filterRecipes.js";
  * @param {FilterOptions} filterOptions 
  */
 
-export function chooseOptions(recipes, filterOptions) {
+
+// Function to update the "tagged" class
+const updateTaggedClass = (item, text) => {
+    const allTags = document.querySelectorAll(".tag");
+    allTags.forEach(tag => {
+        if (tag.querySelector("p").textContent === text) {
+            item.classList.add("tagged");
+        }
+    });
+};
+
+
+export function chooseOptions(recipes, filterOptions, dropdownId) {
+    console.log("chooseOptions function");
 
     const choiceTables = filterOptions.filters;
 
-    // Parcourir les dropdowns
-    const listDropdowns = document.querySelectorAll(".dropdown");
-    listDropdowns.forEach(list => {
+    switch (dropdownId) {
+        case "dropdown-ingredients":
 
-        const listItem = list.querySelectorAll(".dropdown-item");
+            const listIngredients = document.getElementById(dropdownId).querySelectorAll("li");
 
-        for (let i = 0; i < listItem.length; i++) {
+            // Function to manage the addition/deletion of the ingredient
+            const handleIngredientClick = (item, text) => {
+                const tagManager = new TagManager(document.querySelector(".display-tag"));
+                let indiceI = choiceTables.selectedIngredients.lastIndexOf(text);
 
-            listItem[i].addEventListener("click", () => {
-                switch (list.id) {
-                case "dropdown-ingredients":
-
-                    let indiceI = choiceTables.selectedIngredients.lastIndexOf(listItem[i].textContent);
-                    if (indiceI !== -1) {
-                        
-                        // Retirer l'élément du tableau grâce à son indice :
-                        choiceTables.selectedIngredients.splice(indiceI, 1);
-
-                    } else {
-
-                        // Ajouter l'élément au tableau :
-                        choiceTables.selectedIngredients.push(listItem[i].textContent);
-                    }
-                    // Ajouter ou retirer le tag puis filtrer les recettes
-                    createOrCloseTag(listItem[i]);
+                if (indiceI !== -1) {
+                    choiceTables.selectedIngredients.splice(indiceI, 1);
                     filterRecipes(recipes, filterOptions);
 
-                    break;
-
-                case "dropdown-appliances":
-
-                    let indiceA = choiceTables.selectedAppliances.lastIndexOf(listItem[i].textContent);
-                    if (indiceA !== -1) {
-                        
-                        // Retirer l'élément du tableau grâce à son indice :
-                        choiceTables.selectedAppliances.splice(indiceA, 1);
-
-                    } else {
-
-                        // Ajouter l'élément au tableau :
-                        choiceTables.selectedAppliances.push(listItem[i].textContent);
-                    }
-                    createOrCloseTag(listItem[i]);
+                    const allTags = document.querySelectorAll(".tag");
+                    allTags.forEach(tag => {
+                        if (tag.querySelector("p").textContent === text) {
+                            tagManager.removeTag(tag, item);
+                            item.classList.remove("tagged");
+                        }
+                    });
+                } else {
+                    tagManager.createTag(text);
+                    choiceTables.selectedIngredients.push(text);
                     filterRecipes(recipes, filterOptions);
-
-                    break;
-
-                case "dropdown-utils":
-                    
-                let indiceU = choiceTables.selectedUstensils.lastIndexOf(listItem[i].textContent);
-                    if (indiceU !== -1) {
-                        
-                        // Retirer l'élément du tableau grâce à son indice :
-                        choiceTables.selectedUstensils.splice(indiceU, 1);
-
-                    } else {
-
-                        // Ajouter l'élément au tableau :
-                        choiceTables.selectedUstensils.push(listItem[i].textContent);
-                    }
-                    createOrCloseTag(listItem[i]);
-                    filterRecipes(recipes, filterOptions);
-
-                    break;
-            
-                default:
-                    console.log("Cette liste d'élément n'est pas pris en compte");
                 }
-            })
-        }
-    });
-}
+            };
 
-function createOrCloseTag(item) {
+            // Browse the list of ingredients
+            listIngredients.forEach(item => {
+                const text = item.textContent;
+                
+                updateTaggedClass(item, text);
+                item.addEventListener("click", () => handleIngredientClick(item, text));
+            });
+  
+            break;
 
-    // Initialise the class
-    const tagManager = new TagManager(document.querySelector(".display-tag"));
+        case "dropdown-appliances":
 
-    const text = item.textContent;
-    const allTags = document.querySelectorAll(".tag");
-    let exists = false;
+            const listAppliances = document.getElementById(dropdownId).querySelectorAll("li");
 
-    // If the tag already exists, delete it
-    allTags.forEach(tag => {
-        if (tag.querySelector("p").textContent === text) {
-            exists = true;
-            tagManager.removeTag(tag, item);
-        }
-    });
+            // Function to manage the addition/deletion of the appliances
+            const handleApplianceClick = (item, text) => {
+                const tagManager = new TagManager(document.querySelector(".display-tag"));
+                let indiceI = choiceTables.selectedAppliances.lastIndexOf(text);
 
-    // If the tag does not exist, create it and add a class to the item
-    if (!exists) {
-        tagManager.createTag(text, item);
-        item.classList.add("tagged");
+                if (indiceI !== -1) {
+                    choiceTables.selectedAppliances.splice(indiceI, 1);
+                    filterRecipes(recipes, filterOptions);
 
+                    const allTags = document.querySelectorAll(".tag");
+                    allTags.forEach(tag => {
+                        if (tag.querySelector("p").textContent === text) {
+                            tagManager.removeTag(tag, item);
+                            item.classList.remove("tagged");
+                        }
+                    });
+                } else {
+                    tagManager.createTag(text);
+                    choiceTables.selectedAppliances.push(text);
+                    filterRecipes(recipes, filterOptions);
+                }
+            };
+            // Browse the list of appliances
+            listAppliances.forEach(item => {
+                const text = item.textContent;
+                
+                updateTaggedClass(item, text);
+                item.addEventListener("click", () => handleApplianceClick(item, text));
+            });
+            
+            break;
+
+        case "dropdown-utils":
+
+            const listUstensils = document.getElementById(dropdownId).querySelectorAll("li");
+
+            // Function to manage the addition/removal of utensils
+            const handleUstensilsClick = (item, text) => {
+                const tagManager = new TagManager(document.querySelector(".display-tag"));
+                let indiceI = choiceTables.selectedUstensils.lastIndexOf(text);
+
+                if (indiceI !== -1) {
+                    choiceTables.selectedUstensils.splice(indiceI, 1);
+                    filterRecipes(recipes, filterOptions);
+
+                    const allTags = document.querySelectorAll(".tag");
+                    allTags.forEach(tag => {
+                        if (tag.querySelector("p").textContent === text) {
+                            tagManager.removeTag(tag, item);
+                            item.classList.remove("tagged");
+                        }
+                    });
+                } else {
+                    tagManager.createTag(text);
+                    choiceTables.selectedUstensils.push(text);
+                    filterRecipes(recipes, filterOptions);
+                }
+            };
+
+            // Browse the list of utensils
+            listUstensils.forEach(item => {
+                const text = item.textContent;
+                
+                updateTaggedClass(item, text);
+                item.addEventListener("click", () => handleUstensilsClick(item, text));
+            });
+
+            break;
+    
+        default:
+            console.log("Cette liste d'élément n'est pas pris en compte")
+            break;
     }
 }
-

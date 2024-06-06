@@ -26,7 +26,6 @@ export class DropdownManager {
 
 		this.collectUniqueItems();
         this.initializeEventListeners();
-		//this.comboboxAutocomplete();
 	}
 
     /***********************************/
@@ -86,7 +85,7 @@ export class DropdownManager {
 	/******************/
 
 	renderDropdownItems(array) {
-		console.log("début fonction création DOM dropdown");
+		//console.log("Creating the DOM for drop-down list items");
 
 		this.dropdownElement.innerHTML = "";
 
@@ -99,8 +98,7 @@ export class DropdownManager {
 			this.dropdownElement.appendChild(element);
 		});
 
-		console.log("lance chooseOptions après créa DOM dropdown");
-		chooseOptions(this.dataArray, this.filterOptions);
+		chooseOptions(this.dataArray, this.filterOptions, this.id);
 	}
 		
 
@@ -177,7 +175,7 @@ export class DropdownManager {
 	initializeEventListeners() {
 		this.dropdown.addEventListener("new-filter", (e) => {
 
-			console.log("on rentre dans l'écoute de l'event new-filter");
+			//console.log("new-filter event");
 			this.collectUniqueItems(e.detail); // e.detail contains a table of filtered recipes
 
 		})
