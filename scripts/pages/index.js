@@ -18,15 +18,14 @@ displayRecipesNumber(recipes);
 
 
 // Initialisation of filter data
-// TODO : voir pour rationaliser "filters"
 const filterOptions = {
-    searchbarText: "",
-    filters: {
-        selectedIngredients: [],
-        selectedAppliances: [],
-        selectedUstensils: [],
-    },
-}
+	searchbarText: "",
+	filters: {
+		selectedIngredients: [],
+		selectedAppliances: [],
+		selectedUstensils: [],
+	},
+};
 
 
 // Initialise classes
