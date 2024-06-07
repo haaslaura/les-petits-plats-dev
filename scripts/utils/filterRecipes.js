@@ -30,6 +30,8 @@ export function filterRecipes(recipes, filterOptions) {
     const { searchbarText, filters } = filterOptions;
     const { selectedIngredients, selectedAppliances, selectedUstensils } = filters;
 
+    console.log(filters);
+
 	// If there was an error message, remove it
 	const errorMessage = document.querySelector(".error-message");
 	if (errorMessage) {

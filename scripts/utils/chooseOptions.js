@@ -14,26 +14,24 @@ import { filterRecipes } from "./filterRecipes.js";
  * @property {string[]} selectedAppliances
  * @property {string[]} selectedUstensils
  * 
- * @param {Object} recipes 
- * @param {FilterOptions} filterOptions 
+ * @typedef {Object} recipes
+ * @param {FilterOptions} filterOptions
+ * 
+ * @typedef {}
  */
 
 export function chooseOptions(recipes, filterOptions, dropdownId) {
-    console.log("chooseOptions()");
 
     const choiceTables = filterOptions.filters;
-    const tagManager = new TagManager(document.querySelector(".display-tag"));
+    const tagManager = new TagManager(document.querySelector(".display-tag"), "dropdown", filterOptions, recipes);
 
     switch (dropdownId) {
-        case "dropdown-ingredients":
-        
-            console.log("cas ingrédient");      
+        case "dropdown-ingredients":   
 
             const listIngredients = document.getElementById(dropdownId).querySelectorAll("li");
         
             // Function to update the "tagged" class
-            const updateTaggedClassI = (item, text) => {
-                console.log("updateTaggedClass()");
+            const updateTaggedClassI = () => {
 
                 const allTags = document.querySelectorAll(".tag");
                 listIngredients.forEach(item => {
@@ -55,7 +53,6 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 
             // Function to manage the addition/deletion of the ingredient
             const handleIngredientClick = (item, text) => {
-                console.log("lance handleIngredientClick");
                 
                 let indiceI = choiceTables.selectedIngredients.lastIndexOf(text);
 
@@ -66,18 +63,19 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
                     const allTags = document.querySelectorAll(".tag");
                     allTags.forEach(tag => {
                         if (tag.querySelector("p").textContent === text) {
-                            tagManager.removeTag(tag, item);                      
+                            tagManager.removeTag(tag, item, "dropdown", text, "ingredient");                      
                         }
                     });
                 } else {
-                    tagManager.createTag(text);
+                    tagManager.createTag(text, item, "dropdown", "ingredient");
                     choiceTables.selectedIngredients.push(text);
                 }
 
                 // Filter recipes
+                console.log("trie recettes chooseOptions");
                 filterRecipes(recipes, filterOptions);
                 // Update the tagged class after modifying the selection
-                updateTaggedClassI(item, text);
+                updateTaggedClassI();
             };
 
 
@@ -85,20 +83,18 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
             listIngredients.forEach(item => {
                 const text = item.textContent;
 
-                updateTaggedClassI(item, text);
+                updateTaggedClassI();
                 item.addEventListener("click", () => handleIngredientClick(item, text));
             });
               
             break;
 
-        case "dropdown-appliances":
-        console.log("cas appareil");      
+        case "dropdown-appliances":  
 
         const listAppliances = document.getElementById(dropdownId).querySelectorAll("li");
 
         // Function to update the "tagged" class
-        const updateTaggedClassA = (item, text) => {
-            console.log("updateTaggedClass()");
+        const updateTaggedClassA = () => {
 
             const allTags = document.querySelectorAll(".tag");
             listAppliances.forEach(item => {
@@ -120,7 +116,6 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 
         // Function to manage the addition/deletion of the ingredient
         const handleAppliancesClick = (item, text) => {
-            console.log("lance handleAppliancesClick");
             
             let indiceI = choiceTables.selectedAppliances.lastIndexOf(text);
 
@@ -131,18 +126,18 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
                 const allTags = document.querySelectorAll(".tag");
                 allTags.forEach(tag => {
                     if (tag.querySelector("p").textContent === text) {
-                        tagManager.removeTag(tag, item);                      
+                        tagManager.removeTag(tag, item, "dropdown", text, "appliance");                      
                     }
                 });
             } else {
-                tagManager.createTag(text);
+                tagManager.createTag(text, item, "dropdown", "appliance");
                 choiceTables.selectedAppliances.push(text);
             }
 
             // Filter recipes
             filterRecipes(recipes, filterOptions);
             // Update the tagged class after modifying the selection
-            updateTaggedClassA(item, text);
+            updateTaggedClassA();
         };
 
 
@@ -150,20 +145,18 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
         listAppliances.forEach(item => {
             const text = item.textContent;
 
-            updateTaggedClassA(item, text);
+            updateTaggedClassA();
             item.addEventListener("click", () => handleAppliancesClick(item, text));
         });
             
             break;
 
         case "dropdown-utils":
-            console.log("cas ustensiles");      
 
             const listUstensils = document.getElementById(dropdownId).querySelectorAll("li");
     
             // Function to update the "tagged" class
-            const updateTaggedClassU = (item, text) => {
-                console.log("updateTaggedClass()");
+            const updateTaggedClassU = () => {
     
                 const allTags = document.querySelectorAll(".tag");
                 listUstensils.forEach(item => {
@@ -185,7 +178,6 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
     
             // Function to manage the addition/deletion of the ingredient
             const handleUstensilsClick = (item, text) => {
-                console.log("lance handleUstensilsClick");
                 
                 let indiceI = choiceTables.selectedUstensils.lastIndexOf(text);
     
@@ -196,18 +188,18 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
                     const allTags = document.querySelectorAll(".tag");
                     allTags.forEach(tag => {
                         if (tag.querySelector("p").textContent === text) {
-                            tagManager.removeTag(tag, item);                      
+                            tagManager.removeTag(tag, item, "dropdown", text, "ustensil");                      
                         }
                     });
                 } else {
-                    tagManager.createTag(text);
+                    tagManager.createTag(text, item, "dropdown", "ustensil");
                     choiceTables.selectedUstensils.push(text);
                 }
     
                 // Filter recipes
                 filterRecipes(recipes, filterOptions);
                 // Update the tagged class after modifying the selection
-                updateTaggedClassU(item, text);
+                updateTaggedClassU();
             };
     
     
@@ -215,7 +207,7 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
             listUstensils.forEach(item => {
                 const text = item.textContent;
     
-                updateTaggedClassU(item, text);
+                updateTaggedClassU();
                 item.addEventListener("click", () => handleUstensilsClick(item, text));
             });
 
