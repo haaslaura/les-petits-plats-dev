@@ -1,61 +1,89 @@
+import { filterRecipes } from "../utils/filterRecipes.js";
+
 export class TagManager {
-
 	/**
-     * @param {string} item
-     */
-	constructor() {
-		this.tagList = []; // List for storing tag instances
+	* @param {HTMLElement} container
+	* @param {'search'  | 'dropdown'} type
+	* @param {Object} filterOptions
+	* @param {Object} recipes
+	*/
+	
+	constructor(container, type, filterOptions, recipes) {
+		this.container = container;
+		this.type = type;
+		this.filterOptions = filterOptions;
+		this.recipes = recipes;
 	}
-    
-	createTag(item) {
-
-		// Vérifiez si le tag existe déjà dans la tagList
-		const exists = this.tagList.some(tag => tag.querySelector("p").textContent === item);
-
-		if (!exists) {
-
-			// Create DOM
-			const tag = document.createElement("div");
-			tag.classList.add("tag", "d-flex", "flex-row", "flex-nowrap", "justify-content-between", "align-items-center", "p-3", "me-4", "mb-2");
-			tag.innerHTML = `
-            <p>${item}</p>
-            <button>Fermer</button>
-            `;
-
-			// Add an event listener for the close button
-			const closeBtn = tag.querySelector("button");
-			closeBtn.addEventListener("click", () => this.closeTag(tag));
-
-			// Append the tag to the display area
-			document.querySelector(".display-tag").appendChild(tag);
-
-			// Add tag to the list
-			this.tagList.push(tag);
-		}
-	}
-
+	
 	/**
-     * 
-     * @param {HTMLDivElement} tag
-     */    
-	closeTag(tag) {
-		// Add a class to apply the closing animation
-		tag.classList.add("closing-animation");
-
-
-		tag.addEventListener("animationend", () => {
-			// Remove the tag from the DOM
-			tag.remove();
-
-			// Remove the tag from the tagList
-			const index = this.tagList.indexOf(tag);
-			if (index !== -1) {
-				this.tagList.splice(index, 1);
-			}
+	* @param {string} text
+	* @param {HTMLElement} item
+	* @param {string} tagType
+	* @param {string} choiceType - 'ingredient' | 'appliance' | 'ustensil'
+	*/
+	createTag(text, item, tagType, choiceType) {
+		
+		// Create the tag container
+		const tag = document.createElement("div");
+		tag.classList.add("tag", "d-flex", "flex-row", "flex-nowrap", "justify-content-between", "align-items-center", "p-3", "me-4", "mb-2");
+		tag.innerHTML = `
+		<p>${text}</p>
+		<button>Fermer</button>
+		`;
+		
+		// Add an event on the close button
+		const closeButton = tag.querySelector("button");
+		closeButton.addEventListener("click", () => {
+			// Deletes the tag and the "tagged" class on the item
+			this.removeTag(tag, item, tagType, text, choiceType);
 		});
+		
+		// Append the tag to the container
+		this.container.appendChild(tag);
 	}
-
-	getTagList() {
-		return this.tagList;
+	
+	
+	/**
+	* @param {HTMLElement} tag
+	* @param {HTMLElement} item
+	* @param {string} tagType
+	* @param {string} text
+	* @param {string} choiceType - 'ingredient' | 'appliance' | 'ustensil'
+	*/
+	removeTag(tag, item, tagType, text, choiceType) {
+		
+		if(tagType === "search") {
+			const searchBar = document.getElementById("searchbar");
+			searchBar.value = "";
+			this.filterOptions.searchbarText = "";
+			
+		} else if (tagType === "dropdown") {
+			// Remove the 'tagged' class from the corresponding item
+			if(item) {
+				item.classList.remove("tagged");
+			}
+			// Remove the item from the appropriate choice table
+			let choiceArray;
+			switch(choiceType) {
+			case "ingredient":
+				choiceArray = this.filterOptions.filters.selectedIngredients;
+				break;
+			case "appliance":
+				choiceArray = this.filterOptions.filters.selectedAppliances;
+				break;
+			case "ustensil":
+				choiceArray = this.filterOptions.filters.selectedUstensils;
+				break;
+			}
+			
+			const index = choiceArray.indexOf(text);
+			if (index > -1) {
+				choiceArray.splice(index, 1);
+			}
+		}
+		
+		// Remove the tag and then, filters the recipes
+		this.container.removeChild(tag);
+		filterRecipes(this.recipes, this.filterOptions);
 	}
 }

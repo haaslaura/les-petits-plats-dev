@@ -14,11 +14,9 @@
     <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Script -->
     <script type="module" src="scripts/pages/index.js"></script>
-    <script src="scripts/templates/searchBar.js" defer></script>
-    <script type="module" src="scripts/components/createTag.js"></script>
-    <script type="module" src="scripts/classes/TagManager.js"></script>
+
 </head>
-<body>
+<body class="bg-light">
     
     <!-- Header, search -->
     <header class="container-fluid">
@@ -28,7 +26,7 @@
             <h1>Cherchez parmi plus de 1500 recettes du quotidien, simples et délicieuses</h1>
             
             <div class="searchform">
-                <label for="search" class="visually-hidden">Rechercher une recette</label>
+                <label for="searchbar" class="visually-hidden">Rechercher une recette</label>
                 <div class="input-group d-flex justify-content-center">
                     <input
                     class="form-control"
@@ -36,7 +34,10 @@
                     type="search"
                     name="q"
                     aria-label="Chercher une recette ou un ingrédient"
-                    placeholder="Chercher une recette, un ingrédient, ...">
+                    placeholder="Chercher une recette, un ingrédient, ..."
+                    maxlength="120"
+                    pattern="[A-Za-zÀ-ÿ ]{0,120}"
+                    title="Effectuez une recherche avec 4 lettres minimum">
                     <div class="bg-white d-flex justify-content-center align-items-center bg-btn-loop">
                         <button class="loop-icon" type="submit">Rechercher</button>
                     </div>
@@ -46,53 +47,59 @@
         </div>
     </header>
     
-    <main class="container-fluid bg-light pb-4">
+    <main class="container-fluid pb-4">
         
         <!-- All filters options -->
         <section class="container pt-5" aria-label="Choisir des options pour filter les recettes">
 
-            <!-- Dropdow +  Nb receipies -->
-            <div class="filter-section d-flex flex-nowrap justify-content-between align-items-center">
+            <!-- Dropdow + Nb receipies -->
+            <div class="filter-section d-flex flex-wrap-reverse flex-md-nowrap justify-content-between align-items-center">
 
                 <!-- Dropdown -->
                 <div class="filter-section d-flex flex-wrap justify-content-start align-items-center mb-3">
 
                     <!-- Ingredients filter -->
-                    <div id="dropdown-ingredients" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox">
+                    <div id="dropdown-ingredients" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox" aria-expanded="false">
                         
-                            <button
-                            class="dropdown-btn-filter d-flex justify-content-between"
-                            type="button"
-                            id="dropdownMenuButton-ingredients"
-                            data-toggle="dropdown"
-                            aria-haspopup="true"
-                            aria-expanded="false">
-                            <span>Ingrédients</span>
-                            <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
-                            </button>
+                        <button
+                        class="dropdown-btn-filter d-flex justify-content-between"
+                        type="button"
+                        id="dropdownMenuButton-ingredients"
+                        data-toggle="dropdown"
+                        aria-expanded="false"
+                        aria-haspopup="true"
+                        tabindex="0">
+                        <span>Ingrédients</span>
+                        <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
+                        </button>
                         
                         <div class="option-list p-2" aria-labelledby="dropdownMenuButton-ingredients">
                             <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
-                                <label for="ingredient-search" class="visually-hidden">Chercher un ingrédient</label>
+                                <label for="ingredients-search" class="visually-hidden">Chercher un ingrédient</label>
                                 <input
                                 class="form-control"
                                 id="ingredients-search"
                                 type="search"
                                 name="q"
                                 aria-autocomplete="list"
-                                aria-label="Chercher un ingrédient">
+                                aria-label="Chercher un ingrédient"
+                                aria-controls="ingredient-options"
+                                maxlength="80"
+                                pattern="[A-Za-zÀ-ÿ ]{0,80}"
+                                title="Inscrivez un ingrédient en toutes lettres"
+                                tabindex="-1">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
-                                    <button>Chercher</button>
+                                    <button tabindex="-1">Chercher</button>
                                 </div>
                             </form>
-                            <ul class="list-unstyled mb-0 mt-3" role="listbox">
+                            <ul aria-controls="ingredient-options" class="list-unstyled mb-0 mt-3" role="listbox">
                                 <!-- Ingredients list -->
                             </ul>                        
                         </div>
                     </div>
                     
                     <!-- Appliances filter -->
-                    <div id="dropdown-appliances" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox">
+                    <div id="dropdown-appliances" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox" aria-expanded="false">
                         
                         <button
                         class="dropdown-btn-filter d-flex justify-content-between"
@@ -100,7 +107,8 @@
                         id="dropdownMenuButton-appliances"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        tabindex="0">
                         <span>Appareils</span>
                         <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                         </button>
@@ -114,19 +122,24 @@
                                 type="search"
                                 name="q"
                                 aria-autocomplete="list"
-                                aria-label="Chercher un appareil">
+                                aria-label="Chercher un appareil"
+                                aria-controls="appliance-options"
+                                maxlength="80"
+                                pattern="[A-Za-zÀ-ÿ ]{0,80}"
+                                title="Inscrivez un appareil en toutes lettres"
+                                tabindex="-1">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
-                                    <button>Chercher</button>
+                                    <button tabindex="-1">Chercher</button>
                                 </div>
                             </form>
-                            <ul class="list-unstyled mb-0 mt-3 " role="listbox">
+                            <ul id="appliance-options" class="list-unstyled mb-0 mt-3" role="listbox">
                                 <!-- Appliances list -->
                             </ul>                        
                         </div>
                     </div>
                 
                     <!-- Utils filter -->
-                    <div id="dropdown-utils" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox">
+                    <div id="dropdown-utils" class="dropdown filter d-flex flex-wrap me-3 mb-3" role="combobox" aria-expanded="false">
 
                         <button
                         class="dropdown-btn-filter d-flex justify-content-between"
@@ -134,26 +147,32 @@
                         id="dropdownMenuButton-utils"
                         data-toggle="dropdown"
                         aria-haspopup="true"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        tabindex="0">
                         <span>Ustensiles</span>
                         <span><img class=arrow-icon src="assets/icones/arrow-down.svg" alt=""></span>
                         </button>
 
                         <div class="option-list p-2" aria-labelledby="dropdownMenuButton-utils">
                             <form class="mb-2 d-flex justify-content-center align-items-center" data-np-autofill-form-type="other" data-np-checked="1" data-np-watching="1">
-                                <label for="utensil-search" class="visually-hidden">Chercher un ustensiles</label>
+                                <label for="utensils-search" class="visually-hidden">Chercher un ustensiles</label>
                                 <input
                                 class="form-control"
                                 id="utensils-search"
                                 type="search"
                                 name="q"
                                 aria-autocomplete="list"
-                                aria-label="Chercher un ustensiles">
+                                aria-label="Chercher un ustensiles"
+                                aria-controls="ustensil-options"
+                                maxlength="80"
+                                pattern="[A-Za-zÀ-ÿ ]{0,80}"
+                                title="Inscrivez un ustensile en toutes lettres"
+                                tabindex="-1">
                                 <div class="d-flex justify-content-center align-items-center bg-btn-loop">
-                                    <button>Chercher</button>
+                                    <button tabindex="-1">Chercher</button>
                                 </div>
                             </form>
-                            <ul class="list-unstyled mb-0 mt-3 " role="listbox">
+                            <ul id="ustensil-options" class="list-unstyled mb-0 mt-3" role="listbox">
                                 <!-- Utils list -->
                             </ul>                        
                         </div>
@@ -161,7 +180,7 @@
                 </div>
 
                 <!-- Nb receipies -->
-                <p><span>1500</span> recettes</p>
+                <p class="mb-4"><span>1500</span> recettes</p>
             </div>
 
 
