@@ -18,6 +18,7 @@ export class DropdownManager {
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
 		this.currentIndex = -1; // For keyboard navigation
+		console.log(this.currentIndex);
 		
 		this.dropdown = document.getElementById(`${this.id}`); // The dropdown
 		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
@@ -143,6 +144,7 @@ export class DropdownManager {
 	// Functions for unfolding or folding the drop-down list
 	dropdownOpen() {
 		this.dropdown.setAttribute("aria-expanded", "true");
+		this.dropdownBtn.setAttribute("aria-expanded", "true");
 		this.combobox.style.maxHeight = "280px";
 		this.combobox.style.opacity = "1";
 		this.dropdownBtn.querySelector(".arrow-icon").setAttribute("src", "assets/icones/arrow-up.svg");
@@ -152,6 +154,7 @@ export class DropdownManager {
 	}
 	dropdownClose() {
 		this.dropdown.setAttribute("aria-expanded", "false");
+		this.dropdownBtn.setAttribute("aria-expanded", "false");
 		this.combobox.style.maxHeight = "0";
 		this.combobox.style.opacity = "0";
 		this.dropdownBtn.querySelector(".arrow-icon").setAttribute("src", "assets/icones/arrow-down.svg");
@@ -188,29 +191,30 @@ export class DropdownManager {
 
 			case 'ArrowDown':
 				event.preventDefault();
-				this.currentIndex = (this.currentIndex + 1) % options.length;
-				options[this.currentIndex].focus();
-				break;
+                if (this.currentIndex < options.length - 1) {
+                    this.currentIndex += 1;
+                } else {
+                    this.currentIndex = 0;
+                }
+				console.log(this.currentIndex);
+                options[this.currentIndex].focus();
+                break;
 
 			case 'ArrowUp':
 				event.preventDefault();
-				this.currentIndex = (this.currentIndex - 1 + options.length) % options.length;
-				options[this.currentIndex].focus();
-				break;
-
-			// case 'Enter':
-			// 	if (this.currentIndex >= 0) {
-			// 		const selectedOption = options[this.currentIndex];
-			// 		this.dropdownInput.value = selectedOption.textContent;
-			// 		this.combobox.setAttribute('aria-expanded', 'false');
-			// 	}
-			// 	break;
+                if (this.currentIndex > 0) {
+                    this.currentIndex -= 1;
+                } else {
+                    this.currentIndex = options.length - 1;
+                }
+				console.log(this.currentIndex);
+                options[this.currentIndex].focus();
+                break;
 
 			case 'Escape':
 				this.combobox.setAttribute('aria-expanded', 'false');
 				this.dropdownInput.focus();
 				break;
-
 		}
 	}
 	
@@ -260,5 +264,6 @@ export class DropdownManager {
 		this.dropdownInput.addEventListener("keydown", (event) => {
 			this.browseOptions(event);
 		});
+
 	}
 }

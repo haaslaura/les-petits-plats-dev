@@ -85,6 +85,11 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 				
 			updateTaggedClassI();
 			item.addEventListener("click", () => handleIngredientClick(item, text));
+			item.addEventListener("keydown", (event) => {
+				if (event.key === "Enter") {
+					handleIngredientClick(item, text)
+				}
+			});
 		});
 			
 		break;
@@ -148,6 +153,11 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 				
 			updateTaggedClassA();
 			item.addEventListener("click", () => handleAppliancesClick(item, text));
+			item.addEventListener("keydown", (event) => {
+				if (event.key === "Enter") {
+					handleAppliancesClick(item, text)
+				}
+			});
 		});
 			
 		break;
@@ -211,6 +221,11 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 				
 			updateTaggedClassU();
 			item.addEventListener("click", () => handleUstensilsClick(item, text));
+			item.addEventListener("keydown", (event) => {
+				if (event.key === "Enter") {
+					handleUstensilsClick(item, text)
+				}
+			});
 		});
 			
 			
