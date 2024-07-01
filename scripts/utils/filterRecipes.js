@@ -24,24 +24,24 @@ import { displayRecipesNumber } from "./displayRecipesNumber.js";
 */
 
 export function filterRecipes(recipes, filterOptions) {
-	
 	const { searchbarText, filters } = filterOptions;
 	const { selectedIngredients, selectedAppliances, selectedUstensils } = filters;
 	
-	const regex = new RegExp(searchbarText, "gi"); // g = global search, i = insensitive to breakag
-	const filteredRecipes = [];
+	const regex = new RegExp(searchbarText, "gi"); // g = global search, i = insensitive to case
 	
+
 	// If there was an error message, remove it
 	const errorMessage = document.querySelector(".error-message");
 	if (errorMessage) {
 		errorMessage.remove();
 	}
 	
+
 	// If the entire filterOptions is empty, redisplay the originals recipes
 	if (searchbarText === "" && selectedIngredients.length === 0 && selectedAppliances.length === 0 && selectedUstensils.length === 0) {
 		
 		// Creation of an event to retrieve the initial recipes in the DropDownManager class
-		const newFilterRecipes =  new CustomEvent("new-filter", {
+		const newFilterRecipes = new CustomEvent("new-filter", {
 			detail: recipes
 		});
 		const ingredientsDD = document.getElementById("dropdown-ingredients");
@@ -58,105 +58,25 @@ export function filterRecipes(recipes, filterOptions) {
 		return;
 	}
 	
+
+	const filteredRecipes = recipes.filter(recipe => {
+		const matchSearchBar = searchbarText === "" || regex.test(recipe.name) || regex.test(recipe.description) || recipe.ingredients.some(ingredient => regex.test(ingredient.ingredient));
+		
+		const matchAppliances = selectedAppliances.length === 0 || selectedAppliances.some(appliance => recipe.appliance.toLowerCase().includes(appliance.toLowerCase()));
+		
+		const matchIngredients = selectedIngredients.length === 0 || selectedIngredients.every(selectedIngredient => recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(selectedIngredient.toLowerCase())));
+		
+		const matchUstensils = selectedUstensils.length === 0 || selectedUstensils.every(selectedUstensil => recipe.ustensils.map(ustensil => ustensil.toLowerCase()).includes(selectedUstensil.toLowerCase()));
+		
+		return matchSearchBar && matchAppliances && matchIngredients && matchUstensils;
+	});
 	
-	// Browse the list of recipes
-	for (let i = 0; i < recipes.length; i++) {
-		
-		const recipe = recipes[i];
-		let matchSearchBar = true;
-		let matchIngredients = true;
-		let matchAppliances = true;
-		let matchUstensils = true;
-		
-		// Check if the recipe name, description, or any ingredient matches the search text
-		if (searchbarText !== "") {
-			matchSearchBar = false;
-			
-			if (regex.test(recipe.name) || regex.test(recipe.description)) {
-				matchSearchBar = true;
-				
-			} else {
-				for (let ing = 0; ing < recipe.ingredients.length; ing++) {
-					
-					if (regex.test(recipe.ingredients[ing].ingredient)) {
-						matchSearchBar = true;
-						break;
-					}
-				}
-			}
-		}
-		
-		
-		// Check if the recipe matches the selected appliance
-		if (selectedAppliances.length > 0) {
-			matchAppliances = false;
-			
-			if (recipe.appliance.toLowerCase().includes(selectedAppliances[0].toLowerCase())) {
-				matchAppliances = true;
-			}
-		}
-		
-		// Check if the recipe matches the selected ingredients
-		if (selectedIngredients.length > 0) {
-			
-			matchIngredients = true;
-			
-			for (let j = 0; j < selectedIngredients.length; j++) {
-				let found = false;
-				
-				for (let ing = 0; ing < recipe.ingredients.length; ing++) {
-					if (recipe.ingredients[ing].ingredient.toLowerCase().includes(selectedIngredients[j].toLowerCase())) {
-						found = true;
-						break;
-					}
-				}
-				if (!found) {
-					matchIngredients = false;
-					break;
-				}
-			}
-		}
-		
-		
-		// Check if the recipe matches the selected ustensils
-		if (selectedUstensils.length > 0) {
-			
-			matchUstensils = false;
-			
-			// If the number of selected utensils is greater than the number of utensils in the recipe, return false
-			if (selectedUstensils.length > recipe.ustensils.length) {
-				matchUstensils = false;
-			} else {
-				// Convert the utensils of the recipe to lowercase and store them in a separate array
-				const recipeUstensilsLowerCase = [];
-				for (let i = 0; i < recipe.ustensils.length; i++) {
-					recipeUstensilsLowerCase.push(recipe.ustensils[i].toLowerCase());
-				}
-				
-				// Check if all selected utensils are present in the recipe's utensils
-				matchUstensils = true;
-				for (let j = 0; j < selectedUstensils.length; j++) {
-					if (!recipeUstensilsLowerCase.includes(selectedUstensils[j].toLowerCase())) {
-						matchUstensils = false;
-						break;
-					}
-				}
-			}
-		}
-		
-		
-		// If the recipe matches all the criteria, add it to the filtered recipes list
-		if (matchSearchBar && matchIngredients && matchAppliances && matchUstensils) {
-			filteredRecipes.push(recipe);
-		}
-	}
-	
-	
+
 	// If at least 1 recipe is available, display the recipes
 	if (filteredRecipes.length > 0) {
-		
+
 		// Creation of an event to retrieve filtered recipes in the DropDownManager class
-		const newFilterRecipes =  new CustomEvent("new-filter", {
+		const newFilterRecipes = new CustomEvent("new-filter", {
 			detail: filteredRecipes
 		});
 		const ingredientsDD = document.getElementById("dropdown-ingredients");
@@ -173,10 +93,6 @@ export function filterRecipes(recipes, filterOptions) {
 		
 		// If not, display the error message
 	} else {
-		const errorMessage = document.querySelector(".error-message");
-		if (errorMessage) {
-			errorMessage.remove();
-		}
 		displayErrorMessage(searchbarText);
 		displayRecipesNumber([]); // display "0 recettes"
 	}
