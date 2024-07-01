@@ -18,7 +18,6 @@ export class DropdownManager {
 		this.itemsArray = [];
 		this.capitalizedItemsArray = [];
 		this.currentIndex = -1; // For keyboard navigation
-		console.log(this.currentIndex);
 		
 		this.dropdown = document.getElementById(`${this.id}`); // The dropdown
 		this.dropdownBtn = document.querySelector(`#${this.id} .dropdown-btn-filter`); // The button
