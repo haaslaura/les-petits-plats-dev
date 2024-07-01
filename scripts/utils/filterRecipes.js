@@ -58,98 +58,52 @@ export function filterRecipes(recipes, filterOptions) {
 		return;
 	}
 	
-	
-	// Browse the list of recipes
-	for (let i = 0; i < recipes.length; i++) {
-		
-		const recipe = recipes[i];
-		let matchSearchBar = true;
-		let matchIngredients = true;
-		let matchAppliances = true;
-		let matchUstensils = true;
-		
-		// Check if the recipe name, description, or any ingredient matches the search text
-		if (searchbarText !== "") {
-			matchSearchBar = false;
-			
-			if (regex.test(recipe.name) || regex.test(recipe.description)) {
-				matchSearchBar = true;
-				
-			} else {
-				for (let ing = 0; ing < recipe.ingredients.length; ing++) {
-					
-					if (regex.test(recipe.ingredients[ing].ingredient)) {
-						matchSearchBar = true;
-						break;
-					}
-				}
-			}
-		}
-		
-		
-		// Check if the recipe matches the selected appliance
-		if (selectedAppliances.length > 0) {
-			matchAppliances = false;
-			
-			if (recipe.appliance.toLowerCase().includes(selectedAppliances[0].toLowerCase())) {
-				matchAppliances = true;
-			}
-		}
-		
-		// Check if the recipe matches the selected ingredients
-		if (selectedIngredients.length > 0) {
-			
-			matchIngredients = true;
-			
-			for (let j = 0; j < selectedIngredients.length; j++) {
-				let found = false;
-				
-				for (let ing = 0; ing < recipe.ingredients.length; ing++) {
-					if (recipe.ingredients[ing].ingredient.toLowerCase().includes(selectedIngredients[j].toLowerCase())) {
-						found = true;
-						break;
-					}
-				}
-				if (!found) {
-					matchIngredients = false;
-					break;
-				}
-			}
-		}
-		
-		
-		// Check if the recipe matches the selected ustensils
-		if (selectedUstensils.length > 0) {
-			
-			matchUstensils = false;
-			
-			// If the number of selected utensils is greater than the number of utensils in the recipe, return false
-			if (selectedUstensils.length > recipe.ustensils.length) {
-				matchUstensils = false;
-			} else {
-				// Convert the utensils of the recipe to lowercase and store them in a separate array
-				const recipeUstensilsLowerCase = [];
-				for (let i = 0; i < recipe.ustensils.length; i++) {
-					recipeUstensilsLowerCase.push(recipe.ustensils[i].toLowerCase());
-				}
-				
-				// Check if all selected utensils are present in the recipe's utensils
-				matchUstensils = true;
-				for (let j = 0; j < selectedUstensils.length; j++) {
-					if (!recipeUstensilsLowerCase.includes(selectedUstensils[j].toLowerCase())) {
-						matchUstensils = false;
-						break;
-					}
-				}
-			}
-		}
-		
-		
-		// If the recipe matches all the criteria, add it to the filtered recipes list
-		if (matchSearchBar && matchIngredients && matchAppliances && matchUstensils) {
-			filteredRecipes.push(recipe);
-		}
-	}
+
+	// Function to check if a recipe matches search text
+    function matchSearch(recipe) {
+        if (searchbarText === "") return true;
+        if (regex.test(recipe.name) || regex.test(recipe.description)) return true;
+        for (let ing of recipe.ingredients) {
+            if (regex.test(ing.ingredient)) return true;
+        }
+        return false;
+    }
+
+    // Function to check if a recipe matches selected ingredients
+    function matchIngredients(recipe) {
+        if (selectedIngredients.length === 0) return true;
+        for (let selIng of selectedIngredients) {
+            let found = false;
+            for (let ing of recipe.ingredients) {
+                if (ing.ingredient.toLowerCase().includes(selIng.toLowerCase())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) return false;
+        }
+        return true;
+    }
+
+    // Function to check if a recipe matches selected appliances
+    function matchAppliances(recipe) {
+        if (selectedAppliances.length === 0) return true;
+        return selectedAppliances.some(appl => recipe.appliance.toLowerCase().includes(appl.toLowerCase()));
+    }
+
+    // Function to check if a recipe matches selected utensils
+    function matchUstensils(recipe) {
+        if (selectedUstensils.length === 0) return true;
+        const recipeUstensilsLowerCase = recipe.ustensils.map(ut => ut.toLowerCase());
+        return selectedUstensils.every(ut => recipeUstensilsLowerCase.includes(ut.toLowerCase()));
+    }
+
+    // Filter recipes based on criteria
+    for (let recipe of recipes) {
+        if (matchSearch(recipe) && matchIngredients(recipe) && matchAppliances(recipe) && matchUstensils(recipe)) {
+            filteredRecipes.push(recipe);
+        }
+    }
 	
 	
 	// If at least 1 recipe is available, display the recipes
