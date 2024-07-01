@@ -87,7 +87,7 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 			item.addEventListener("click", () => handleIngredientClick(item, text));
 			item.addEventListener("keydown", (event) => {
 				if (event.key === "Enter") {
-					handleIngredientClick(item, text)
+					handleIngredientClick(item, text);
 				}
 			});
 		});
@@ -155,7 +155,7 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 			item.addEventListener("click", () => handleAppliancesClick(item, text));
 			item.addEventListener("keydown", (event) => {
 				if (event.key === "Enter") {
-					handleAppliancesClick(item, text)
+					handleAppliancesClick(item, text);
 				}
 			});
 		});
@@ -223,7 +223,7 @@ export function chooseOptions(recipes, filterOptions, dropdownId) {
 			item.addEventListener("click", () => handleUstensilsClick(item, text));
 			item.addEventListener("keydown", (event) => {
 				if (event.key === "Enter") {
-					handleUstensilsClick(item, text)
+					handleUstensilsClick(item, text);
 				}
 			});
 		});

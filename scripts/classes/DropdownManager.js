@@ -179,41 +179,41 @@ export class DropdownManager {
 
 	// Use the arrow keys to scroll through the list
 	browseOptions(event) {
-		const options = this.dropdownElement.querySelectorAll('[role="option"]');
+		const options = this.dropdownElement.querySelectorAll("[role=\"option\"]");
 	
 		switch (event.key) {
 
-			case 'Backspace':
-			case 'Delete':
-				this.comboboxAutocomplete();
-				break;
+		case "Backspace":
+		case "Delete":
+			this.comboboxAutocomplete();
+			break;
 
-			case 'ArrowDown':
-				event.preventDefault();
-                if (this.currentIndex < options.length - 1) {
-                    this.currentIndex += 1;
-                } else {
-                    this.currentIndex = 0;
-                }
-				console.log(this.currentIndex);
-                options[this.currentIndex].focus();
-                break;
+		case "ArrowDown":
+			event.preventDefault();
+			if (this.currentIndex < options.length - 1) {
+				this.currentIndex += 1;
+			} else {
+				this.currentIndex = 0;
+			}
+			console.log(this.currentIndex);
+			options[this.currentIndex].focus();
+			break;
 
-			case 'ArrowUp':
-				event.preventDefault();
-                if (this.currentIndex > 0) {
-                    this.currentIndex -= 1;
-                } else {
-                    this.currentIndex = options.length - 1;
-                }
-				console.log(this.currentIndex);
-                options[this.currentIndex].focus();
-                break;
+		case "ArrowUp":
+			event.preventDefault();
+			if (this.currentIndex > 0) {
+				this.currentIndex -= 1;
+			} else {
+				this.currentIndex = options.length - 1;
+			}
+			console.log(this.currentIndex);
+			options[this.currentIndex].focus();
+			break;
 
-			case 'Escape':
-				this.combobox.setAttribute('aria-expanded', 'false');
-				this.dropdownInput.focus();
-				break;
+		case "Escape":
+			this.combobox.setAttribute("aria-expanded", "false");
+			this.dropdownInput.focus();
+			break;
 		}
 	}
 	
