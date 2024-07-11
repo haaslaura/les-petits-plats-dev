@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack",
     "sass": "sass --watch sass/main.scss css/style.css",
-    "lint": "eslint **/*.js --fix"
+    "lint": "eslint **/*.js --fix",
+    "uglifyjs": "uglifyjs-folder scripts -eo scriptsMin",
+    "cleancss": "cleancss -o css/style.min.css css/style.css"
   },
   "author": "Laura Haas",
   "license": "ISC",
